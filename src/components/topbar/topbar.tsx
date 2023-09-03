@@ -30,7 +30,9 @@ export const Topbar: FC<TopbarProps> = ({ colorMode, setColorMode }) => {
         fontSize={["10px", "10px", "20px"]}
         fontWeight="bold"
         color="font.secondary"
-      >{`Witaj, ${user.attributes?.name}!`}</Text>
+      >
+        Quotes App
+      </Text>
 
       <Flex alignItems="center">
         <SwitchField
@@ -42,6 +44,7 @@ export const Topbar: FC<TopbarProps> = ({ colorMode, setColorMode }) => {
             );
           }}
         />
+
         <Button size="small" onClick={signOut}>
           Wyloguj się
         </Button>

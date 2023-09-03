@@ -10,13 +10,22 @@ import {
 import { useGetQuoteData } from "../../hooks/useGetQuoteData";
 
 export const QuoteList = () => {
-  const { quotes } = useGetQuoteData();
-  if (!quotes.length)
+  const { quotes, isLoading } = useGetQuoteData();
+  if (isLoading) {
     return (
       <Flex justifyContent="center" marginTop="large">
         <Loader width="100px" height="100px" />
       </Flex>
     );
+  }
+
+  if (!quotes.length) {
+    return (
+      <Flex justifyContent="center" marginTop="large">
+        <Text>Empty list! Add Your first quote.</Text>
+      </Flex>
+    );
+  }
 
   return (
     <>

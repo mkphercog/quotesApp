@@ -13,20 +13,23 @@ interface QuoteDataResponseType {
 
 export const useGetQuoteData = () => {
   const [quotes, setQuotes] = useState<EagerQuoteDataModel[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     (async () => {
       try {
         const quoteData = (await API.graphql(
           graphqlOperation(listQuoteDataModels)
         )) as QuoteDataResponseType;
-
         setQuotes(quoteData.data.listQuoteDataModels.items);
+        setIsLoading(false);
       } catch (error) {
         console.log("Get quote data error: ", error);
+        setIsLoading(false);
       }
     })();
   }, []);
 
-  return { quotes };
+  return { quotes, isLoading };
 };
