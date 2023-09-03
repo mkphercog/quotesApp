@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { Amplify } from "aws-amplify";
+import awsconfig from "./aws-exports";
+import {
+  Authenticator,
+  defaultDarkModeOverride,
+  ThemeProvider,
+  withAuthenticator,
+  ColorMode,
+  View,
+} from "@aws-amplify/ui-react";
 
-function App() {
+import { Content } from "./content";
+import { Topbar } from "./components";
+
+import "@aws-amplify/ui-react/styles.css";
+import "./App.css";
+
+Amplify.configure(awsconfig);
+
+export const App = () => {
+  const [colorMode, setColorMode] = useState<ColorMode>("light");
+  const theme = {
+    name: "my-theme",
+    overrides: [defaultDarkModeOverride],
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Authenticator>
+      <ThemeProvider theme={theme} colorMode={colorMode}>
+        <View
+          backgroundColor="background.primary"
+          minHeight="100vh"
+          padding="0"
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Topbar setColorMode={setColorMode} colorMode={colorMode} />
+          <Content />
+        </View>
+      </ThemeProvider>
+    </Authenticator>
   );
-}
+};
 
-export default App;
+export default withAuthenticator(App);

@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-quotesapp-dev-173202-authRole",
+      "UnauthRoleArn": "arn:aws:iam::714148760812:role/amplify-quotesapp-dev-173202-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::714148760812:role/amplify-quotesapp-dev-173202-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-quotesapp-dev-173202-deployment",
+      "UnauthRoleName": "amplify-quotesapp-dev-173202-unauthRole",
+      "StackName": "amplify-quotesapp-dev-173202",
+      "StackId": "arn:aws:cloudformation:eu-central-1:714148760812:stack/amplify-quotesapp-dev-173202/078cb030-4a6f-11ee-bdba-0abb8d8fa83e",
+      "AmplifyAppId": "dx9sfib6hclsa"
+    },
+    "categories": {
+      "auth": {
+        "quotesapp90271efc": {}
+      },
+      "api": {
+        "QuotesAppAPI": {}
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+type QuoteDataModel
+  @model
+  @aws_cognito_user_pools
+  @auth(rules: [{ allow: owner }]) {
+  content: String!
+  source: SourceData @hasOne
+  comment: String
+  tag: TagData @hasOne
+}
+
+type SourceData
+  @model
+  @aws_cognito_user_pools
+  @auth(rules: [{ allow: owner }]) {
+  title: String
+  author: String
+}
+
+type TagData @model @aws_cognito_user_pools @auth(rules: [{ allow: owner }]) {
+  name: String
+}
