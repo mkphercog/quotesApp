@@ -13,3 +13,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.amplify-expander {
+  background-color: var(--amplify-colors-yellow-10) !important;
+}
+
+.amplify-expander__item:focus-within {
+  box-shadow: none !important;
+}
+
+.amplify-select option {
+  background-color: var(--amplify-colors-background-primary) !important;
+}

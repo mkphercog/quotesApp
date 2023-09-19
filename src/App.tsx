@@ -1,6 +1,6 @@
 import { useState } from "react";
+import { Route, Routes } from "react-router-dom";
 import { Amplify } from "aws-amplify";
-import awsconfig from "./aws-exports";
 import {
   Authenticator,
   defaultDarkModeOverride,
@@ -10,16 +10,28 @@ import {
   View,
 } from "@aws-amplify/ui-react";
 
-import { Content } from "./content";
-import { Topbar } from "./components";
+import {
+  AddQuoteForm,
+  ManageSource,
+  ManageTag,
+  Topbar,
+  UpdateQuoteForm,
+} from "./components";
+import { AddPage, ListPage } from "./pages";
+
+import awsconfig from "./aws-exports";
+import { ROUTES } from "./api/routes";
 
 import "@aws-amplify/ui-react/styles.css";
 import "./App.css";
+import { getColorModeFromLocalStorage } from "utils/localStorageColorModeManagement";
 
 Amplify.configure(awsconfig);
 
 export const App = () => {
-  const [colorMode, setColorMode] = useState<ColorMode>("light");
+  const localStorageColorMode = getColorModeFromLocalStorage();
+  const [colorMode, setColorMode] = useState<ColorMode>(localStorageColorMode);
+
   const theme = {
     name: "my-theme",
     overrides: [defaultDarkModeOverride],
@@ -33,8 +45,30 @@ export const App = () => {
           minHeight="100vh"
           padding="0"
         >
-          <Topbar setColorMode={setColorMode} colorMode={colorMode} />
-          <Content />
+          <Routes>
+            <Route
+              path={ROUTES.home}
+              element={
+                <Topbar setColorMode={setColorMode} colorMode={colorMode} />
+              }
+            >
+              <Route index element={<ListPage />} />
+              <Route path={ROUTES.manage.root} element={<AddPage />}>
+                <Route index element={<AddQuoteForm />} />
+                <Route
+                  path={ROUTES.manage.addQuote}
+                  element={<AddQuoteForm />}
+                />
+                <Route path={ROUTES.manage.source} element={<ManageSource />} />
+                <Route path={ROUTES.manage.tag} element={<ManageTag />} />
+              </Route>
+              <Route
+                path={ROUTES.manage.editQuoteRoot}
+                element={<UpdateQuoteForm />}
+              />
+              <Route path={ROUTES.other} element={<div>No Page</div>} />
+            </Route>
+          </Routes>
         </View>
       </ThemeProvider>
     </Authenticator>

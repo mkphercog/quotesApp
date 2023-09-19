@@ -1,16 +1,11 @@
-import {
-  Badge,
-  Card,
-  Divider,
-  Flex,
-  Heading,
-  Loader,
-  Text,
-} from "@aws-amplify/ui-react";
-import { useGetQuoteData } from "../../hooks/useGetQuoteData";
+import { Flex, Loader, Text } from "@aws-amplify/ui-react";
+import { useGetQuotesListQuery } from "api/quotes";
+import { QuoteListItem } from "./quote-list-item/quote-list-item";
 
 export const QuoteList = () => {
-  const { quotes, isLoading } = useGetQuoteData();
+  const { quoteList, isLoading } = useGetQuotesListQuery();
+
+  console.log(quoteList);
   if (isLoading) {
     return (
       <Flex justifyContent="center" marginTop="large">
@@ -19,7 +14,7 @@ export const QuoteList = () => {
     );
   }
 
-  if (!quotes.length) {
+  if (!quoteList?.length) {
     return (
       <Flex justifyContent="center" marginTop="large">
         <Text>Empty list! Add Your first quote.</Text>
@@ -28,28 +23,16 @@ export const QuoteList = () => {
   }
 
   return (
-    <>
-      {quotes.map((quote) => (
-        <Card
-          key={quote.id}
-          variation="elevated"
-          margin="medium"
-          maxWidth="300px"
-          backgroundColor="yellow.10"
-        >
-          <Heading fontSize="medium" color="teal.80">
-            {quote.source?.title}
-          </Heading>
-          <Text fontSize="small" color="font.secondary">
-            {quote.source?.author}
-          </Text>
-
-          {quote.tag && <Badge>{quote.tag?.name}</Badge>}
-
-          {quote.source && <Divider margin="15px 0" />}
-          <Text fontSize="large">{`"${quote.content}"`}</Text>
-        </Card>
+    <Flex
+      direction="column"
+      gap="20px"
+      padding="20px 50px"
+      width="60%"
+      margin="0 auto"
+    >
+      {quoteList.map((quote) => (
+        <QuoteListItem key={quote.id} quote={quote} />
       ))}
-    </>
+    </Flex>
   );
 };
