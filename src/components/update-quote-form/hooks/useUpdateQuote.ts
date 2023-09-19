@@ -29,7 +29,6 @@ export const useUpdateQuote = (currentQuoteId: string) => {
     newQueryData: BasicQuoteDataType,
     { id }: QuoteIdType
   ) => {
-    console.log("NEW DATA:", newQueryData);
     updateQuoteDataMutation({
       id,
       content: newQueryData.content.trim(),

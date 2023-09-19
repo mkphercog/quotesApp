@@ -159,9 +159,7 @@ const ManageTagItem: FC<ManageTagItemProps> = ({
 
             <Button
               type="submit"
-              disabled={
-                !!(watchName === tag.name) || !!formState.errors.name?.type
-              }
+              disabled={watchName === tag.name || !!formState.errors.name?.type}
             >
               Uaktualnij
             </Button>

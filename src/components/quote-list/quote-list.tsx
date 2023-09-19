@@ -5,7 +5,6 @@ import { QuoteListItem } from "./quote-list-item/quote-list-item";
 export const QuoteList = () => {
   const { quoteList, isLoading } = useGetQuotesListQuery();
 
-  console.log(quoteList);
   if (isLoading) {
     return (
       <Flex justifyContent="center" marginTop="large">

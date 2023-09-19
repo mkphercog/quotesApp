@@ -23,8 +23,6 @@ export const ManageSourceList = () => {
     currentSourceId: "",
   });
 
-  console.log(sourceList);
-
   return (
     <ListWrapper
       isEmptyList={!sourceList?.length}
@@ -81,7 +79,7 @@ const ManageSourceItem: FC<ManageSourceItemProps> = ({
   const isError = !!Object.entries(formState.errors).length;
   const watchTitle = watch("title")?.trim();
   const watchAuthor = watch("author")?.trim();
-  console.log("isError", isError);
+
   const handleEditSource = (sourceData: Pick<EagerSourceData, "id">) => {
     setEditMode((prevState) => ({
       isOn: editMode.currentSourceId !== sourceData.id ? true : !prevState.isOn,
@@ -220,8 +218,8 @@ const ManageSourceItem: FC<ManageSourceItemProps> = ({
             <Button
               type="submit"
               disabled={
-                (!!(watchTitle === source.title) &&
-                  !!(watchAuthor === source.author)) ||
+                (watchTitle === source.title &&
+                  watchAuthor === source.author) ||
                 isError
               }
             >

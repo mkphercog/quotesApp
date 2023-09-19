@@ -101,7 +101,11 @@ export const QuoteForm: FC<QuoteFormProps> = ({
           </SelectField>
         </Flex>
 
-        <Button marginTop="20px" type="submit" disabled={isError || isLoading}>
+        <Button
+          marginTop="20px"
+          type="submit"
+          disabled={isError || isLoading || !formState.isDirty}
+        >
           {submitButtonText}
         </Button>
 
