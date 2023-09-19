@@ -1,12 +1,6 @@
-import {
-  Button,
-  Card,
-  Flex,
-  Loader,
-  Text,
-  TextField,
-} from "@aws-amplify/ui-react";
+import { Loader, Text, TextField } from "@aws-amplify/ui-react";
 import { ListWrapper } from "components/shared/list-wrapper/list-wrapper";
+import { ManageListItem } from "components/shared/manage-list-item/manage-list-item";
 import { EagerSourceData } from "models";
 import { FC, useState } from "react";
 import { useManageSource } from "../hooks/useManageSource";
@@ -92,63 +86,10 @@ const ManageSourceItem: FC<ManageSourceItemProps> = ({
     }));
   };
 
-  if (!isCurrentSourceEdited) {
-    return (
-      <Card width="100%" backgroundColor="orange.20">
-        <Flex direction="column" gap="0">
-          <Text>Tytuł</Text>
-          <Text
-            padding="8px 16px"
-            border="1px solid"
-            borderColor="border.primary"
-            borderRadius="small"
-            minHeight="42px"
-          >
-            {isUpdateSourceMutationLoading ? <Loader /> : source.title}
-          </Text>
-
-          <Text>Autor</Text>
-          <Text
-            padding="8px 16px"
-            border="1px solid"
-            borderColor="border.primary"
-            borderRadius="small"
-            minHeight="42px"
-          >
-            {isUpdateSourceMutationLoading ? <Loader /> : source.author}
-          </Text>
-
-          <Button
-            width="fit-content"
-            marginTop="20px"
-            onClick={() => {
-              setEditMode({
-                currentSourceId: source.id,
-                isOn: true,
-              });
-              reset();
-            }}
-            disabled={isDeleteSourceMutationLoading}
-          >
-            Ustawienia
-          </Button>
-        </Flex>
-      </Card>
-    );
-  }
-
   return (
-    <Card width="100%" backgroundColor="orange.40">
-      <form
-        onSubmit={handleSubmit((updateSourceData) => {
-          handleUpdateSource(updateSourceData, source);
-          setEditMode({
-            currentSourceId: "",
-            isOn: false,
-          });
-        })}
-      >
-        <Flex direction="column" gap="0">
+    <ManageListItem
+      editFields={
+        <>
           <TextField
             gap="0"
             label="Tytuł"
@@ -204,28 +145,58 @@ const ManageSourceItem: FC<ManageSourceItemProps> = ({
               }
             </Text>
           )}
+        </>
+      }
+      noEditFields={
+        <>
+          <Text>Tytuł</Text>
+          <Text
+            padding="8px 16px"
+            border="1px solid"
+            borderColor="border.primary"
+            borderRadius="small"
+            minHeight="42px"
+          >
+            {isUpdateSourceMutationLoading ? <Loader /> : source.title}
+          </Text>
 
-          <Flex marginTop="20px" width="100%">
-            <Button onClick={() => handleEditSource(source)}>Anuluj</Button>
-
-            <Button
-              onClick={() => {
-                handleDeleteSource(source);
-                setEditMode({
-                  currentSourceId: "",
-                  isOn: false,
-                });
-              }}
-            >
-              Usuń
-            </Button>
-
-            <Button type="submit" disabled={isSubmitButtonDisabled}>
-              Uaktualnij
-            </Button>
-          </Flex>
-        </Flex>
-      </form>
-    </Card>
+          <Text>Autor</Text>
+          <Text
+            padding="8px 16px"
+            border="1px solid"
+            borderColor="border.primary"
+            borderRadius="small"
+            minHeight="42px"
+          >
+            {isUpdateSourceMutationLoading ? <Loader /> : source.author}
+          </Text>
+        </>
+      }
+      isCurrentItemEdited={isCurrentSourceEdited}
+      isDeleteMutationLoading={isDeleteSourceMutationLoading}
+      isSubmitButtonDisabled={isSubmitButtonDisabled}
+      onClickCancel={() => handleEditSource(source)}
+      onClickDelete={() => {
+        handleDeleteSource(source);
+        setEditMode({
+          currentSourceId: "",
+          isOn: false,
+        });
+      }}
+      onClickSettings={() => {
+        setEditMode({
+          currentSourceId: source.id,
+          isOn: true,
+        });
+        reset();
+      }}
+      onSubmit={handleSubmit((updateSourceData) => {
+        handleUpdateSource(updateSourceData, source);
+        setEditMode({
+          currentSourceId: "",
+          isOn: false,
+        });
+      })}
+    />
   );
 };

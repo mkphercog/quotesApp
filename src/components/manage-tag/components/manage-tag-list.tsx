@@ -1,12 +1,6 @@
-import {
-  Button,
-  Card,
-  Flex,
-  Loader,
-  Text,
-  TextField,
-} from "@aws-amplify/ui-react";
+import { Loader, Text, TextField } from "@aws-amplify/ui-react";
 import { ListWrapper } from "components/shared/list-wrapper/list-wrapper";
+import { ManageListItem } from "components/shared/manage-list-item/manage-list-item";
 import { EagerTagData } from "models";
 import { FC, useState } from "react";
 
@@ -85,50 +79,10 @@ const ManageTagItem: FC<ManageTagItemProps> = ({
     }));
   };
 
-  if (!isCurrentTagEdited) {
-    return (
-      <Card width="100%" backgroundColor="orange.20">
-        <Flex direction="column" gap="0">
-          <Text
-            padding="8px 16px"
-            border="1px solid"
-            borderColor="border.primary"
-            borderRadius="small"
-          >
-            {isUpdateTagMutationLoading ? <Loader /> : tag.name}
-          </Text>
-
-          <Button
-            width="fit-content"
-            marginTop="20px"
-            onClick={() => {
-              setEditMode({
-                currentTagId: tag.id,
-                isOn: true,
-              });
-              reset();
-            }}
-            disabled={isDeleteTagMutationLoading}
-          >
-            Ustawienia
-          </Button>
-        </Flex>
-      </Card>
-    );
-  }
-
   return (
-    <Card width="100%" backgroundColor="orange.40">
-      <form
-        onSubmit={handleSubmit((updateTagData) => {
-          handleUpdateTag(updateTagData, tag);
-          setEditMode({
-            currentTagId: "",
-            isOn: false,
-          });
-        })}
-      >
-        <Flex direction="column" gap="0">
+    <ManageListItem
+      editFields={
+        <>
           <TextField
             gap="0"
             label={undefined}
@@ -145,28 +99,45 @@ const ManageTagItem: FC<ManageTagItemProps> = ({
               {ERROR_MAPPER[formState.errors.name?.type as FieldErrorTypes]}
             </Text>
           )}
-
-          <Flex marginTop="20px" width="100%">
-            <Button onClick={() => handleEditTag(tag)}>Anuluj</Button>
-
-            <Button
-              onClick={() => {
-                handleDeleteTag(tag);
-                setEditMode({
-                  currentTagId: "",
-                  isOn: false,
-                });
-              }}
-            >
-              Usuń
-            </Button>
-
-            <Button type="submit" disabled={isSubmitButtonDisabled}>
-              Uaktualnij
-            </Button>
-          </Flex>
-        </Flex>
-      </form>
-    </Card>
+        </>
+      }
+      noEditFields={
+        <>
+          <Text
+            padding="8px 16px"
+            border="1px solid"
+            borderColor="border.primary"
+            borderRadius="small"
+          >
+            {isUpdateTagMutationLoading ? <Loader /> : tag.name}
+          </Text>
+        </>
+      }
+      isCurrentItemEdited={isCurrentTagEdited}
+      isDeleteMutationLoading={isDeleteTagMutationLoading}
+      isSubmitButtonDisabled={isSubmitButtonDisabled}
+      onClickCancel={() => handleEditTag(tag)}
+      onClickDelete={() => {
+        handleDeleteTag(tag);
+        setEditMode({
+          currentTagId: "",
+          isOn: false,
+        });
+      }}
+      onClickSettings={() => {
+        setEditMode({
+          currentTagId: tag.id,
+          isOn: true,
+        });
+        reset();
+      }}
+      onSubmit={handleSubmit((updateTagData) => {
+        handleUpdateTag(updateTagData, tag);
+        setEditMode({
+          currentTagId: "",
+          isOn: false,
+        });
+      })}
+    />
   );
 };
