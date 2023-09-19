@@ -25,6 +25,7 @@ import { ROUTES } from "./api/routes";
 import "@aws-amplify/ui-react/styles.css";
 import "./App.css";
 import { getColorModeFromLocalStorage } from "utils/localStorageColorModeManagement";
+import { RandomQuotePage } from "pages/random-quote-page/random-quote-page";
 
 Amplify.configure(awsconfig);
 
@@ -66,6 +67,7 @@ export const App = () => {
                 path={ROUTES.manage.editQuoteRoot}
                 element={<UpdateQuoteForm />}
               />
+              <Route path={ROUTES.randomQuote} element={<RandomQuotePage />} />
               <Route path={ROUTES.other} element={<div>No Page</div>} />
             </Route>
           </Routes>

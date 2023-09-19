@@ -7,6 +7,7 @@ import {
   useAuthenticator,
 } from "@aws-amplify/ui-react";
 import { useQueryClient } from "@tanstack/react-query";
+import { useGetQuotesListQuery } from "api/quotes";
 
 import { Dispatch, FC, SetStateAction, useEffect } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
@@ -20,6 +21,7 @@ interface TopbarProps {
 }
 
 export const Topbar: FC<TopbarProps> = ({ colorMode, setColorMode }) => {
+  const { quoteList } = useGetQuotesListQuery();
   const navigate = useNavigate();
   const { signOut } = useAuthenticator();
   const queryClient = useQueryClient();
@@ -64,6 +66,11 @@ export const Topbar: FC<TopbarProps> = ({ colorMode, setColorMode }) => {
           <NavLink className="nav_link" to={ROUTES.manage.root}>
             Zarządzaj
           </NavLink>
+          {quoteList && quoteList.length > 2 && (
+            <NavLink className="nav_link" to={ROUTES.randomQuote}>
+              Wylosuj
+            </NavLink>
+          )}
         </Flex>
 
         <Flex alignItems="center">

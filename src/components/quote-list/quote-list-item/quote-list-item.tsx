@@ -25,7 +25,7 @@ export const QuoteListItem: FC<QuoteListItemProps> = ({ quote }) => {
       pathname: ROUTES.manage.editQuote(id),
     });
   };
-  const updatedAtValue = new Date(quote.createdAt || "").toLocaleString();
+  const createdAtValue = new Date(quote.createdAt || "").toLocaleString();
 
   return (
     <Expander type="multiple">
@@ -39,7 +39,7 @@ export const QuoteListItem: FC<QuoteListItemProps> = ({ quote }) => {
         value={quote.id}
       >
         <Text fontSize="xx-small" color="font.secondary" textAlign="end">
-          {updatedAtValue}
+          {createdAtValue}
         </Text>
 
         <Flex direction="column" gap="5px">

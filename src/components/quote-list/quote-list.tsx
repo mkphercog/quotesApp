@@ -16,7 +16,9 @@ export const QuoteList = () => {
   if (!quoteList?.length) {
     return (
       <Flex justifyContent="center" marginTop="large">
-        <Text>Empty list! Add Your first quote.</Text>
+        <Text>
+          Pusta lista. Dodaj swój pierwszy cytat w zakładce "zarządzaj".
+        </Text>
       </Flex>
     );
   }
