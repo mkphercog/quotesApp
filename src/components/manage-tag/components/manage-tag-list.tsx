@@ -71,8 +71,12 @@ const ManageTagItem: FC<ManageTagItemProps> = ({
     watch,
   } = useManageTag();
 
+  const watchName = watch("name");
+  const isError = !!Object.entries(formState.errors).length;
+  const isSubmitButtonDisabled =
+    !watchName || watchName === tag.name || isError;
+
   const isCurrentTagEdited = editMode.isOn && editMode.currentTagId === tag.id;
-  const watchName = watch("name")?.trim();
 
   const handleEditTag = (tagData: Pick<EagerTagData, "id">) => {
     setEditMode((prevState) => ({
@@ -157,10 +161,7 @@ const ManageTagItem: FC<ManageTagItemProps> = ({
               Usuń
             </Button>
 
-            <Button
-              type="submit"
-              disabled={watchName === tag.name || !!formState.errors.name?.type}
-            >
+            <Button type="submit" disabled={isSubmitButtonDisabled}>
               Uaktualnij
             </Button>
           </Flex>

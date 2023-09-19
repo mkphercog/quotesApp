@@ -74,11 +74,16 @@ const ManageSourceItem: FC<ManageSourceItemProps> = ({
     clearErrors,
   } = useManageSource();
 
+  const watchTitle = watch("title");
+  const watchAuthor = watch("author");
+  const isError = !!Object.entries(formState.errors).length;
+  const isSubmitButtonDisabled =
+    ((!watchTitle || watchTitle === source.title) &&
+      (!watchAuthor || watchAuthor === source.author)) ||
+    isError;
+
   const isCurrentSourceEdited =
     editMode.isOn && editMode.currentSourceId === source.id;
-  const isError = !!Object.entries(formState.errors).length;
-  const watchTitle = watch("title")?.trim();
-  const watchAuthor = watch("author")?.trim();
 
   const handleEditSource = (sourceData: Pick<EagerSourceData, "id">) => {
     setEditMode((prevState) => ({
@@ -215,14 +220,7 @@ const ManageSourceItem: FC<ManageSourceItemProps> = ({
               Usuń
             </Button>
 
-            <Button
-              type="submit"
-              disabled={
-                (watchTitle === source.title &&
-                  watchAuthor === source.author) ||
-                isError
-              }
-            >
+            <Button type="submit" disabled={isSubmitButtonDisabled}>
               Uaktualnij
             </Button>
           </Flex>
