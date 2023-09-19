@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/quotesApp/static/css/main.c5f29a2e.css",
-    "main.js": "/quotesApp/static/js/main.f38cb9c9.js",
+    "main.js": "/quotesApp/static/js/main.ee74a887.js",
     "index.html": "/quotesApp/index.html",
     "main.c5f29a2e.css.map": "/quotesApp/static/css/main.c5f29a2e.css.map",
-    "main.f38cb9c9.js.map": "/quotesApp/static/js/main.f38cb9c9.js.map"
+    "main.ee74a887.js.map": "/quotesApp/static/js/main.ee74a887.js.map"
   },
   "entrypoints": [
     "static/css/main.c5f29a2e.css",
-    "static/js/main.f38cb9c9.js"
+    "static/js/main.ee74a887.js"
   ]
 }
