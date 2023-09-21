@@ -8,6 +8,7 @@ import {
 } from "@aws-amplify/ui-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useGetQuotesListQuery } from "api/quotes";
+import { MINIMUM_QUOTES_LIST_LENGTH } from "pages/random-quote-page/random-quote-page";
 
 import { Dispatch, FC, SetStateAction, useEffect } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
@@ -25,6 +26,8 @@ export const Topbar: FC<TopbarProps> = ({ colorMode, setColorMode }) => {
   const navigate = useNavigate();
   const { signOut } = useAuthenticator();
   const queryClient = useQueryClient();
+  const hasQuoteListAppropriateLength =
+    Number(quoteList?.length) >= MINIMUM_QUOTES_LIST_LENGTH;
 
   useEffect(() => {
     (async () => {
@@ -66,7 +69,7 @@ export const Topbar: FC<TopbarProps> = ({ colorMode, setColorMode }) => {
           <NavLink className="nav_link" to={ROUTES.manage.root}>
             Zarządzaj
           </NavLink>
-          {quoteList && quoteList.length > 2 && (
+          {hasQuoteListAppropriateLength && (
             <NavLink className="nav_link" to={ROUTES.randomQuote}>
               Wylosuj
             </NavLink>
