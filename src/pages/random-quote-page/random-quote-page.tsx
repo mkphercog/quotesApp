@@ -2,26 +2,24 @@ import { useState, useEffect } from "react";
 import { Button, Flex, Heading, Loader, Text } from "@aws-amplify/ui-react";
 import { useGetQuotesListQuery } from "api/quotes";
 import { EagerQuoteDataModel } from "models";
+import { useReading } from "utils/useReading";
+import { getRandomNonRepeatingNumber } from "utils/getRandomNumber";
 
 export const RandomQuotePage = () => {
+  const { startReading, stopReading, isReading } = useReading();
+  const [randomQuote, setRandomQuote] = useState<EagerQuoteDataModel | null>();
   const [shouldGetRandomAgain, setShouldGetRandomAgain] = useState(false);
-  const [randomQuote, setRandomQuote] = useState<EagerQuoteDataModel>();
   const { quoteList, isLoading } = useGetQuotesListQuery();
 
-  const getRandomQuote = () => {
-    if (quoteList) {
-      const randomIndex = quoteList
-        ? Math.floor(Math.random() * quoteList.length)
-        : -1;
-
-      return quoteList[randomIndex];
-    }
-  };
-
   useEffect(() => {
-    setRandomQuote(getRandomQuote());
+    if (quoteList) {
+      const randomNumber = getRandomNonRepeatingNumber({
+        min: 0,
+        max: quoteList.length,
+      });
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+      setRandomQuote(quoteList[randomNumber]);
+    }
   }, [shouldGetRandomAgain, quoteList]);
 
   if (!quoteList) {
@@ -58,13 +56,27 @@ export const RandomQuotePage = () => {
       >
         <Text fontSize="x-large">{randomQuote && randomQuote.content}</Text>
       </Flex>
-      <Button
-        onClick={() => {
-          setShouldGetRandomAgain((prevState) => !prevState);
-        }}
-      >
-        Wylosuj ponownie
-      </Button>
+      <Flex>
+        <Button
+          onClick={() => {
+            if (isReading) {
+              stopReading();
+            } else {
+              randomQuote && startReading(randomQuote.content);
+            }
+          }}
+        >
+          {isReading ? "Stop" : "Przeczytaj"}
+        </Button>
+        <Button
+          onClick={() => {
+            setShouldGetRandomAgain((prevState) => !prevState);
+          }}
+          disabled={isReading}
+        >
+          Wylosuj ponownie
+        </Button>
+      </Flex>
     </Flex>
   );
 };
