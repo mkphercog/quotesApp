@@ -7,9 +7,10 @@ export const useReading = () => {
   const [isReading, setIsReading] = useState(synth.speaking);
 
   const startReading = (text: string) => {
-    speach.voice = synth.getVoices()[15];
-    console.log(synth.getVoices()[15]);
-    speach.lang = "pl-PL";
+    const polandVoice = synth
+      .getVoices()
+      .find((item) => item.name === "Google polski");
+    speach.voice = polandVoice || ({} as SpeechSynthesisVoice);
     speach.text = text;
 
     synth.speak(speach);
