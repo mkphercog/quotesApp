@@ -1,11 +1,11 @@
 {
   "files": {
     "main.css": "/quotesApp/static/css/main.a8e9372e.css",
-    "main.js": "/quotesApp/static/js/main.6986b12c.js",
+    "main.js": "/quotesApp/static/js/main.e5ecd7dc.js",
     "index.html": "/quotesApp/index.html"
   },
   "entrypoints": [
     "static/css/main.a8e9372e.css",
-    "static/js/main.6986b12c.js"
+    "static/js/main.e5ecd7dc.js"
   ]
 }
