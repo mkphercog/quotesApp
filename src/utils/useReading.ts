@@ -7,12 +7,16 @@ export const useReading = () => {
   const [isReading, setIsReading] = useState(synth.speaking);
 
   const startReading = (text: string) => {
-    speach.text = text;
     speach.voice = synth.getVoices()[15];
+    console.log(synth.getVoices()[15]);
+    speach.lang = "pl-PL";
+    speach.text = text;
+
+    synth.speak(speach);
+
     speach.onend = () => {
       setIsReading(synth.speaking);
     };
-    synth.speak(speach);
     setIsReading(synth.speaking);
   };
 
