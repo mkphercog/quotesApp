@@ -10,7 +10,14 @@ export const useReading = () => {
     const polandVoice = synth
       .getVoices()
       .find((item) => item.name === "Google polski");
-    speach.voice = polandVoice || ({} as SpeechSynthesisVoice);
+
+    if (polandVoice) {
+      speach.voice = polandVoice;
+    } else {
+      speach.pitch = 0.3;
+      speach.rate = 1;
+    }
+
     speach.text = text;
 
     synth.speak(speach);
