@@ -8,11 +8,12 @@ import {
 } from "@aws-amplify/ui-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useGetQuotesListQuery } from "api/quotes";
+import { setColorModeToLocalStorage } from "lib/utils";
 import { MINIMUM_QUOTES_LIST_LENGTH } from "pages/random-quote-page/random-quote-page";
 
 import { Dispatch, FC, SetStateAction, useEffect } from "react";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { setColorModeToLocalStorage } from "utils/localStorageColorModeManagement";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+
 import { ROUTES } from "../../api/routes";
 import "./topbar.css";
 
@@ -24,6 +25,7 @@ interface TopbarProps {
 export const Topbar: FC<TopbarProps> = ({ colorMode, setColorMode }) => {
   const { quoteList } = useGetQuotesListQuery();
   const navigate = useNavigate();
+  const location = useLocation();
   const { signOut } = useAuthenticator();
   const queryClient = useQueryClient();
   const hasQuoteListAppropriateLength =
@@ -39,8 +41,21 @@ export const Topbar: FC<TopbarProps> = ({ colorMode, setColorMode }) => {
 
   const logOut = async () => {
     signOut();
+
+    if (location.pathname.includes("editQuote")) {
+      navigate({ pathname: ROUTES.home });
+    }
+
     await queryClient.invalidateQueries();
     queryClient.removeQueries();
+  };
+
+  const handleToggleColorMode = () => {
+    setColorMode((currentMode) => {
+      const toggledColorMode = currentMode === "dark" ? "light" : "dark";
+      setColorModeToLocalStorage(toggledColorMode);
+      return toggledColorMode;
+    });
   };
 
   return (
@@ -80,14 +95,7 @@ export const Topbar: FC<TopbarProps> = ({ colorMode, setColorMode }) => {
           <SwitchField
             color="font.secondary"
             label={colorMode === "dark" ? "Dark mode" : "Light mode"}
-            onChange={() => {
-              setColorMode((currentMode) => {
-                const toggledColorMode =
-                  currentMode === "dark" ? "light" : "dark";
-                setColorModeToLocalStorage(toggledColorMode);
-                return toggledColorMode;
-              });
-            }}
+            onChange={handleToggleColorMode}
           />
 
           <Button size="small" onClick={logOut}>

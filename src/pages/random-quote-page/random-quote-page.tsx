@@ -2,8 +2,9 @@ import { useState, useEffect, FC } from "react";
 import { Button, Flex, Heading, Loader, Text } from "@aws-amplify/ui-react";
 import { useGetQuotesListQuery } from "api/quotes";
 import { EagerQuoteDataModel } from "models";
-import { useReading } from "utils/useReading";
-import { getRandomNonRepeatingNumber } from "utils/getRandomNumber";
+
+import { useReading } from "lib/hooks";
+import { getRandomNonRepeatingNumber } from "lib/utils";
 
 export const MINIMUM_QUOTES_LIST_LENGTH = 3;
 

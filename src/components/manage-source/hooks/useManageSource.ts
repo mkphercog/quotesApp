@@ -16,8 +16,7 @@ export const useManageSource = () => {
   const { deleteSourceDataMutation, isDeleteSourceMutationLoading } =
     useDeleteSourceMutation();
 
-  const { register, reset, handleSubmit, watch, formState, clearErrors } =
-    useForm<SourceBasicDataType>({ mode: "onChange" });
+  const formData = useForm<SourceBasicDataType>({ mode: "onChange" });
 
   const handleUpdateSource = (
     updateSourceData: SourceBasicDataType,
@@ -37,17 +36,12 @@ export const useManageSource = () => {
   };
 
   return {
+    ...formData,
     sourceList,
     isSourceListLoading: isLoading,
-    register,
-    handleSubmit,
     handleUpdateSource,
     isUpdateSourceMutationLoading,
     handleDeleteSource,
     isDeleteSourceMutationLoading,
-    formState,
-    reset,
-    watch,
-    clearErrors,
   };
 };

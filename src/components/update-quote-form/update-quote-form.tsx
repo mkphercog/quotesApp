@@ -19,6 +19,7 @@ export const UpdateQuoteForm = () => {
     handleSubmit,
     handleUpdateQuote,
     reset,
+    watch,
   } = useUpdateQuote(params.id || "");
 
   useEffect(() => {
@@ -49,6 +50,7 @@ export const UpdateQuoteForm = () => {
         isLoading={isUpdateQuoteMutationLoading}
         register={register}
         reset={reset}
+        watch={watch}
       />
       <Button onClick={() => navigate({ pathname: ROUTES.home })}>Wróć</Button>
     </Flex>

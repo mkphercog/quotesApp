@@ -1,4 +1,4 @@
-import { Loader, Text, TextField } from "@aws-amplify/ui-react";
+import { Flex, Loader, Text, TextField } from "@aws-amplify/ui-react";
 import { ListWrapper } from "components/shared/list-wrapper/list-wrapper";
 import { ManageListItem } from "components/shared/manage-list-item/manage-list-item";
 import { EagerTagData } from "models";
@@ -82,28 +82,32 @@ const ManageTagItem: FC<ManageTagItemProps> = ({
   return (
     <ManageListItem
       editFields={
-        <>
-          <TextField
-            gap="0"
-            label={undefined}
-            defaultValue={tag.name || ""}
-            {...register("name", {
-              required: true,
-              value: tag.name,
-              maxLength: TAG_NAME_MAX_LENGTH,
-            })}
-          />
-
-          {formState.errors.name?.type && (
-            <Text color="font.error">
-              {ERROR_MAPPER[formState.errors.name?.type as FieldErrorTypes]}
-            </Text>
-          )}
-        </>
+        <TextField
+          gap="0"
+          label={
+            <Flex justifyContent="space-between" alignItems="flex-end">
+              <Text></Text>
+              <Text fontSize="x-small">{`${
+                watchName?.length || 0
+              }/${TAG_NAME_MAX_LENGTH}`}</Text>
+            </Flex>
+          }
+          hasError={!!formState.errors.name?.type}
+          errorMessage={
+            ERROR_MAPPER[formState.errors.name?.type as FieldErrorTypes]
+          }
+          defaultValue={tag.name || ""}
+          {...register("name", {
+            required: true,
+            value: tag.name,
+            maxLength: TAG_NAME_MAX_LENGTH,
+          })}
+        />
       }
       noEditFields={
         <>
           <Text
+            marginTop="15px"
             padding="8px 16px"
             border="1px solid"
             borderColor="border.primary"

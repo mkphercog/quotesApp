@@ -16,8 +16,7 @@ export const useManageTag = () => {
   const { deleteTagDataMutation, isDeleteTagMutationLoading } =
     useDeleteTagMutation();
 
-  const { register, reset, handleSubmit, watch, formState } =
-    useForm<TagBasicDataType>({ mode: "onChange" });
+  const formData = useForm<TagBasicDataType>({ mode: "onChange" });
 
   const handleUpdateTag = (
     updateTagData: TagBasicDataType,
@@ -36,16 +35,12 @@ export const useManageTag = () => {
   };
 
   return {
+    ...formData,
     tagList,
     isTagListLoading: isLoading,
-    register,
-    handleSubmit,
     handleUpdateTag,
     isUpdateTagMutationLoading,
     handleDeleteTag,
     isDeleteTagMutationLoading,
-    formState,
-    reset,
-    watch,
   };
 };

@@ -18,14 +18,14 @@ import {
   UpdateQuoteForm,
 } from "./components";
 import { AddPage, ListPage } from "./pages";
+import { RandomQuotePage } from "pages/random-quote-page/random-quote-page";
+import { getColorModeFromLocalStorage } from "lib/utils";
 
 import awsconfig from "./aws-exports";
 import { ROUTES } from "./api/routes";
 
 import "@aws-amplify/ui-react/styles.css";
 import "./App.css";
-import { getColorModeFromLocalStorage } from "utils/localStorageColorModeManagement";
-import { RandomQuotePage } from "pages/random-quote-page/random-quote-page";
 
 Amplify.configure(awsconfig);
 

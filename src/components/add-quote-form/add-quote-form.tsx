@@ -15,6 +15,7 @@ export const AddQuoteForm = () => {
     isAddQuoteDataMutationLoading,
     formState,
     reset,
+    watch,
   } = useAddQuote();
 
   useEffect(() => {
@@ -37,6 +38,7 @@ export const AddQuoteForm = () => {
       sourceList={sourceList || []}
       tagList={tagList || []}
       submitButtonText="Dodaj"
+      watch={watch}
     />
   );
 };

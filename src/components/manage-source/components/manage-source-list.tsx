@@ -1,4 +1,4 @@
-import { Loader, Text, TextField } from "@aws-amplify/ui-react";
+import { Flex, Loader, Text, TextField } from "@aws-amplify/ui-react";
 import { ListWrapper } from "components/shared/list-wrapper/list-wrapper";
 import { ManageListItem } from "components/shared/manage-list-item/manage-list-item";
 import { EagerSourceData } from "models";
@@ -70,7 +70,9 @@ const ManageSourceItem: FC<ManageSourceItemProps> = ({
 
   const watchTitle = watch("title");
   const watchAuthor = watch("author");
-  const isError = !!Object.entries(formState.errors).length;
+  const isErrorInTitle = !!formState.errors.title?.type;
+  const isErrorInAuthor = !!formState.errors.author?.type;
+  const isError = isErrorInTitle || isErrorInAuthor;
   const isSubmitButtonDisabled =
     ((!watchTitle || watchTitle === source.title) &&
       (!watchAuthor || watchAuthor === source.author)) ||
@@ -91,8 +93,22 @@ const ManageSourceItem: FC<ManageSourceItemProps> = ({
       editFields={
         <>
           <TextField
+            label={
+              <Flex justifyContent="space-between" alignItems="flex-end">
+                <Text>Tytuł</Text>
+                <Text fontSize="x-small">{`${
+                  watchTitle?.length || 0
+                }/${SOURCE_MAX_LENGTH}`}</Text>
+              </Flex>
+            }
             gap="0"
-            label="Tytuł"
+            maxLength={SOURCE_MAX_LENGTH + 10}
+            hasError={isErrorInTitle}
+            errorMessage={
+              SOURCE_ERROR_MAPPER[
+                formState.errors.title?.type as FieldErrorTypes
+              ]
+            }
             defaultValue={source.title || ""}
             {...register("title", {
               required: !watchAuthor,
@@ -108,18 +124,23 @@ const ManageSourceItem: FC<ManageSourceItemProps> = ({
               },
             })}
           />
-          {isError && (
-            <Text color="font.error">
-              {
-                SOURCE_ERROR_MAPPER[
-                  formState.errors.title?.type as FieldErrorTypes
-                ]
-              }
-            </Text>
-          )}
           <TextField
             gap="0"
-            label="Autor"
+            label={
+              <Flex justifyContent="space-between" alignItems="flex-end">
+                <Text>Autor</Text>
+                <Text fontSize="x-small">{`${
+                  watchAuthor?.length || 0
+                }/${SOURCE_MAX_LENGTH}`}</Text>
+              </Flex>
+            }
+            maxLength={SOURCE_MAX_LENGTH + 10}
+            hasError={isErrorInAuthor}
+            errorMessage={
+              SOURCE_ERROR_MAPPER[
+                formState.errors.author?.type as FieldErrorTypes
+              ]
+            }
             defaultValue={source.author || ""}
             {...register("author", {
               required: !watchTitle,
@@ -135,16 +156,6 @@ const ManageSourceItem: FC<ManageSourceItemProps> = ({
               },
             })}
           />
-
-          {isError && (
-            <Text color="font.error">
-              {
-                SOURCE_ERROR_MAPPER[
-                  formState.errors.author?.type as FieldErrorTypes
-                ]
-              }
-            </Text>
-          )}
         </>
       }
       noEditFields={

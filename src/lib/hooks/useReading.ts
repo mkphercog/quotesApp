@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+const GOOGLE_POLAND_VOICE = "Google polski";
 const synth = window.speechSynthesis;
 const speach = new SpeechSynthesisUtterance();
 
@@ -9,7 +10,7 @@ export const useReading = () => {
   const startReading = (text: string) => {
     const polandGoogleVoice = synth
       .getVoices()
-      .find((item) => item.name === "Google polski");
+      .find((item) => item.name === GOOGLE_POLAND_VOICE);
 
     if (polandGoogleVoice) {
       speach.voice = polandGoogleVoice;

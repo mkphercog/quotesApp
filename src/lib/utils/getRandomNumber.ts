@@ -15,8 +15,8 @@ export const getRandomNonRepeatingNumber = (params: GetRandomNumberParams) => {
   const isRandomNumSameAsLastItemOfUsedNums =
     isUsedNumsFull && randomNum === usedNums[usedNums.length - 1];
 
-  if (min > max) {
-    console.error(`Min value (${min}) is greater than max (${max}).`);
+  if (min >= max) {
+    console.error(`Min value (${min}) is greater than or equals max (${max}).`);
     return 0;
   }
 

@@ -5,7 +5,6 @@ interface AddFormProps {
   heading: ReactNode;
   onSubmit: () => void;
   isError?: boolean;
-  errorMessage?: string;
   isDirty: boolean;
   isLoading: boolean;
   reset: () => void;
@@ -15,7 +14,6 @@ export const AddForm: FC<PropsWithChildren<AddFormProps>> = ({
   heading,
   onSubmit,
   isError,
-  errorMessage,
   isDirty,
   isLoading,
   reset,
@@ -29,11 +27,10 @@ export const AddForm: FC<PropsWithChildren<AddFormProps>> = ({
         </Text>
         {children}
 
-        {isError && <Text color="font.error">{errorMessage}</Text>}
         <Button marginTop="20px" type="submit" disabled={!isDirty || isLoading}>
           Dodaj
         </Button>
-        {isError && (
+        {(isError || isDirty) && (
           <Button marginLeft="20px" onClick={() => reset()}>
             Wyczyść
           </Button>

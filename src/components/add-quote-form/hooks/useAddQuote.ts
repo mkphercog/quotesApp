@@ -15,16 +15,15 @@ export const useAddQuote = () => {
   const { addQuoteDataMutation, isAddQuoteDataMutationLoading } =
     useAddQuoteMutation();
 
-  const { register, reset, handleSubmit, formState } =
-    useForm<BasicQuoteDataType>({
-      defaultValues: {
-        content: "",
-        comment: "",
-        quoteDataModelSourceId: "",
-        quoteDataModelTagId: "",
-      },
-      mode: "onChange",
-    });
+  const formData = useForm<BasicQuoteDataType>({
+    defaultValues: {
+      content: "",
+      comment: "",
+      quoteDataModelSourceId: "",
+      quoteDataModelTagId: "",
+    },
+    mode: "onChange",
+  });
 
   const handleAddQuote = (newQueryData: BasicQuoteDataType) => {
     addQuoteDataMutation({
@@ -32,16 +31,14 @@ export const useAddQuote = () => {
       content: newQueryData.content.trim(),
       comment: newQueryData.comment?.trim(),
     });
-    reset();
+    formData.reset();
   };
 
   return {
+    ...formData,
     sourceList,
     tagList,
-    register,
-    reset,
-    handleAddQuote: handleSubmit(handleAddQuote),
+    handleAddQuote: formData.handleSubmit(handleAddQuote),
     isAddQuoteDataMutationLoading,
-    formState,
   };
 };

@@ -6,8 +6,14 @@ import {
   Text,
   TextAreaField,
 } from "@aws-amplify/ui-react";
-import { FormState, UseFormRegister, UseFormReset } from "react-hook-form";
+import {
+  FormState,
+  UseFormRegister,
+  UseFormReset,
+  UseFormWatch,
+} from "react-hook-form";
 import { EagerQuoteDataModel, EagerSourceData, EagerTagData } from "models";
+import { FieldErrorTypes } from "components/manage-source/manage-source.constants";
 
 export type BasicQuoteDataType = Pick<
   EagerQuoteDataModel,
@@ -22,9 +28,17 @@ interface QuoteFormProps {
   register: UseFormRegister<BasicQuoteDataType>;
   reset: UseFormReset<BasicQuoteDataType>;
   formState: FormState<BasicQuoteDataType>;
+  watch: UseFormWatch<BasicQuoteDataType>;
   isError: boolean;
   isLoading: boolean;
 }
+
+const QUOTE_CONTENT_MAX_LENGTH = 512;
+
+export const ERROR_MAPPER: Record<FieldErrorTypes, string> = {
+  required: "Pole wymagane.",
+  maxLength: `Maksymalna liczba znaków to: ${QUOTE_CONTENT_MAX_LENGTH}.`,
+};
 
 export const QuoteForm: FC<QuoteFormProps> = ({
   sourceList,
@@ -33,10 +47,14 @@ export const QuoteForm: FC<QuoteFormProps> = ({
   submitButtonText,
   register,
   reset,
+  watch,
   formState,
   isError,
   isLoading,
 }) => {
+  const contentCurrentLength = watch("content")?.length || 0;
+  const commentCurrentLength = watch("comment")?.length || 0;
+
   return (
     <Flex
       padding="40px"
@@ -52,16 +70,37 @@ export const QuoteForm: FC<QuoteFormProps> = ({
         onSubmit={onSubmit}
       >
         <TextAreaField
-          label="Treść cytatu"
-          {...register("content", { required: true, maxLength: 256 })}
+          label={
+            <Flex justifyContent="space-between" alignItems="flex-end">
+              <Text>Treść cytatu*</Text>
+              <Text fontSize="x-small">{`${contentCurrentLength}/${QUOTE_CONTENT_MAX_LENGTH}`}</Text>
+            </Flex>
+          }
+          hasError={isError}
+          maxLength={QUOTE_CONTENT_MAX_LENGTH + 10}
+          errorMessage={
+            ERROR_MAPPER[formState.errors.content?.type as FieldErrorTypes]
+          }
+          {...register("content", {
+            required: true,
+            maxLength: QUOTE_CONTENT_MAX_LENGTH,
+          })}
         />
-        {formState.errors.content && (
-          <Text color="font.error">Pole wymagane</Text>
-        )}
+
         <TextAreaField
           marginTop="20px"
-          label="Komentarz"
-          {...register("comment", { maxLength: 256 })}
+          maxLength={QUOTE_CONTENT_MAX_LENGTH + 10}
+          hasError={!!formState.errors.comment?.type}
+          errorMessage={
+            ERROR_MAPPER[formState.errors.comment?.type as FieldErrorTypes]
+          }
+          label={
+            <Flex justifyContent="space-between" alignItems="flex-end">
+              <Text>Komentarz</Text>
+              <Text fontSize="x-small">{`${commentCurrentLength}/${QUOTE_CONTENT_MAX_LENGTH}`}</Text>
+            </Flex>
+          }
+          {...register("comment", { maxLength: QUOTE_CONTENT_MAX_LENGTH })}
         />
 
         <Flex marginTop="20px">
@@ -100,6 +139,9 @@ export const QuoteForm: FC<QuoteFormProps> = ({
             ))}
           </SelectField>
         </Flex>
+        <Text marginTop="10px" fontSize="x-small">
+          * pole wymagane
+        </Text>
 
         <Button
           marginTop="20px"
@@ -109,7 +151,7 @@ export const QuoteForm: FC<QuoteFormProps> = ({
           {submitButtonText}
         </Button>
 
-        {formState.isDirty && (
+        {(formState.isDirty || isError) && (
           <Button marginLeft="20px" onClick={() => reset()}>
             Wyczyść
           </Button>

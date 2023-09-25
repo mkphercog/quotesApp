@@ -17,13 +17,12 @@ export const useUpdateQuote = (currentQuoteId: string) => {
   const { updateQuoteDataMutation, isUpdateQuoteMutationLoading } =
     useUpdateQuoteMutation();
 
-  const { register, reset, handleSubmit, formState, setValue } =
-    useForm<BasicQuoteDataType>({
-      defaultValues: {
-        ...quoteDetails,
-      },
-      mode: "onChange",
-    });
+  const formData = useForm<BasicQuoteDataType>({
+    defaultValues: {
+      ...quoteDetails,
+    },
+    mode: "onChange",
+  });
 
   const handleUpdateQuote = (
     newQueryData: BasicQuoteDataType,
@@ -36,19 +35,15 @@ export const useUpdateQuote = (currentQuoteId: string) => {
       quoteDataModelSourceId: newQueryData.quoteDataModelSourceId,
       quoteDataModelTagId: newQueryData.quoteDataModelTagId,
     });
-    reset();
+    formData.reset();
   };
 
   return {
+    ...formData,
     quoteDetails,
     sourceList,
     tagList,
-    register,
-    reset,
-    handleSubmit,
     handleUpdateQuote,
     isUpdateQuoteMutationLoading,
-    formState,
-    setValue,
   };
 };

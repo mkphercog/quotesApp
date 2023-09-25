@@ -8,30 +8,25 @@ export const useAddSource = () => {
   const { addSourceDataMutation, isAddSourceMutationLoading } =
     useAddSourceMutation();
 
-  const { register, reset, handleSubmit, formState, watch, clearErrors } =
-    useForm<SourceBasicDataType>({
-      defaultValues: {
-        title: "",
-        author: "",
-      },
-      mode: "onChange",
-    });
+  const formData = useForm<SourceBasicDataType>({
+    defaultValues: {
+      title: "",
+      author: "",
+    },
+    mode: "onChange",
+  });
 
   const handleAddSource = (newSourceData: SourceBasicDataType) => {
     addSourceDataMutation({
       title: newSourceData.title?.trim(),
       author: newSourceData.author?.trim(),
     });
-    reset();
+    formData.reset();
   };
 
   return {
-    register,
-    reset,
-    handleAddSource: handleSubmit(handleAddSource),
+    ...formData,
+    handleAddSource: formData.handleSubmit(handleAddSource),
     isAddSourceMutationLoading,
-    formState,
-    watch,
-    clearErrors,
   };
 };
