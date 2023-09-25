@@ -17,20 +17,15 @@ export const RandomQuotePage = () => {
     Number(quoteList?.length) >= MINIMUM_QUOTES_LIST_LENGTH;
 
   useEffect(() => {
-    console.log(quoteList);
     if (quoteList) {
       const randomNumber = getRandomNonRepeatingNumber({
         min: 0,
         max: quoteList.length,
       });
-      console.log("random: ", randomNumber);
-
       setRandomQuote(quoteList[randomNumber]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shouldGetRandomAgain, quoteList]);
-
-  console.log("COMPONET");
 
   return (
     <Flex direction="column" alignItems="center">
