@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, FC } from "react";
 import { Button, Flex, Heading, Loader, Text } from "@aws-amplify/ui-react";
 import { useGetQuotesListQuery } from "api/quotes";
 import { EagerQuoteDataModel } from "models";
@@ -16,27 +16,20 @@ export const RandomQuotePage = () => {
     Number(quoteList?.length) >= MINIMUM_QUOTES_LIST_LENGTH;
 
   useEffect(() => {
+    console.log(quoteList);
     if (quoteList) {
       const randomNumber = getRandomNonRepeatingNumber({
         min: 0,
         max: quoteList.length,
       });
+      console.log("random: ", randomNumber);
 
       setRandomQuote(quoteList[randomNumber]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shouldGetRandomAgain, quoteList]);
 
-  const Content = () => {
-    if (!quoteList || isLoading) {
-      return <Loader height="100px" margin="0 auto" />;
-    }
-
-    if (!hasQuoteListAppropriateLength) {
-      return <Text fontSize="x-large">Niewystarczająca ilość cytatów</Text>;
-    }
-
-    return <Text fontSize="x-large">{randomQuote && randomQuote.content}</Text>;
-  };
+  console.log("COMPONET");
 
   return (
     <Flex direction="column" alignItems="center">
@@ -50,7 +43,11 @@ export const RandomQuotePage = () => {
         margin="20px auto"
         backgroundColor="yellow.10"
       >
-        <Content />
+        <Content
+          isLoading={isLoading}
+          hasQuoteListAppropriateLength={hasQuoteListAppropriateLength}
+          randomQuoteContent={randomQuote?.content || "Błąd losowania"}
+        />
       </Flex>
 
       {hasQuoteListAppropriateLength && (
@@ -78,4 +75,26 @@ export const RandomQuotePage = () => {
       )}
     </Flex>
   );
+};
+
+interface ContentProps {
+  isLoading: boolean;
+  hasQuoteListAppropriateLength: boolean;
+  randomQuoteContent: string;
+}
+
+const Content: FC<ContentProps> = ({
+  isLoading,
+  hasQuoteListAppropriateLength,
+  randomQuoteContent,
+}) => {
+  if (isLoading) {
+    return <Loader height="100px" margin="0 auto" />;
+  }
+
+  if (!hasQuoteListAppropriateLength) {
+    return <Text fontSize="x-large">Niewystarczająca ilość cytatów</Text>;
+  }
+
+  return <Text fontSize="x-large">{randomQuoteContent}</Text>;
 };
