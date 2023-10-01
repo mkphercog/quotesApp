@@ -1,6 +1,6 @@
 import { FieldError } from "react-hook-form";
 
-export const SOURCE_MAX_LENGTH = 50;
+export const SOURCE_MAX_LENGTH = 100;
 
 export type FieldErrorTypes = Extract<
   FieldError["type"],

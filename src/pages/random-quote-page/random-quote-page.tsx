@@ -6,6 +6,8 @@ import { EagerQuoteDataModel } from "models";
 import { useReading } from "lib/hooks";
 import { getRandomNonRepeatingNumber } from "lib/utils";
 
+import styles from "./random-quote-page.module.scss";
+
 export const MINIMUM_QUOTES_LIST_LENGTH = 3;
 
 export const RandomQuotePage = () => {
@@ -38,6 +40,7 @@ export const RandomQuotePage = () => {
         width="60%"
         margin="20px auto"
         backgroundColor="yellow.10"
+        className={styles.contentWrapper}
       >
         <Content
           isLoading={isLoading}

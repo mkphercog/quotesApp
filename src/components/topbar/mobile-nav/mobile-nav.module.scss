@@ -1,0 +1,37 @@
+@use "./../../../assets/styles/breakpoints.scss" as *;
+
+.mobileMenu {
+  display: flex;
+  padding: 10px 10px 10px 20px;
+  margin-top: 10px;
+  background-color: var(--amplify-colors-background-tertiary);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  box-shadow: 0px 0px 1px rgba(30, 40, 52, 0.24),
+    0px 2px 6px rgba(30, 40, 52, 0.08);
+
+  @include for-tablet-lg-up {
+    display: none;
+  }
+}
+
+.navLinkMobile {
+  color: currentColor;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 500;
+  border-bottom: 2px solid transparent;
+  pointer-events: none;
+}
+
+.activeMobile {
+  color: currentColor;
+  border-bottom: 2px solid currentColor;
+}
+
+.mobileSignOut {
+  width: 100% !important;
+  padding: 0 !important;
+  color: currentColor !important;
+  background-color: transparent !important;
+}

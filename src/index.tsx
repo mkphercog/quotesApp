@@ -6,7 +6,7 @@ import { ONE_HOUR_IN_MILLISECONDS } from "lib/constants";
 
 import App from "./App";
 
-import "./index.css";
+import "./assets/styles/index.scss";
 
 const queryClient = new QueryClient({
   defaultOptions: {

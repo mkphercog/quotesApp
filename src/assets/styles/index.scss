@@ -1,7 +1,16 @@
-body {
+@import "./variables.scss";
+
+:root {
+  --short-animation-duration: #{$short-animation-duration};
+}
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -24,4 +33,8 @@ code {
 
 .amplify-select option {
   background-color: var(--amplify-colors-background-primary) !important;
+}
+
+.amplify-tabs {
+  display: none;
 }

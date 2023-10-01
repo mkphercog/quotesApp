@@ -2,6 +2,8 @@ import { Flex, Loader, Text } from "@aws-amplify/ui-react";
 import { useGetQuotesListQuery } from "api/quotes";
 import { QuoteListItem } from "./quote-list-item/quote-list-item";
 
+import styles from "./quote-list.module.scss";
+
 export const QuoteList = () => {
   const { quoteList, isLoading } = useGetQuotesListQuery();
 
@@ -28,8 +30,8 @@ export const QuoteList = () => {
       direction="column"
       gap="20px"
       padding="20px 50px"
-      width="60%"
       margin="0 auto"
+      className={styles.wrapper}
     >
       {quoteList.map((quote) => (
         <QuoteListItem key={quote.id} quote={quote} />

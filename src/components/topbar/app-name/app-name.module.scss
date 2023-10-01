@@ -1,0 +1,35 @@
+@use "../../../assets/styles/breakpoints.scss" as *;
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  padding: 10px 20px 10px 10px;
+  background-color: var(--amplify-colors-background-tertiary);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-shadow: 0px 0px 1px rgba(30, 40, 52, 0.24),
+    0px 2px 6px rgba(30, 40, 52, 0.08);
+  cursor: pointer;
+}
+
+.name {
+  font-size: 17px !important;
+  font-weight: bold !important;
+  color: var(--amplify-colors-font-secondary) !important;
+
+  @include for-tablet-lg-up {
+    font-size: 20px !important;
+  }
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+
+  @include for-tablet-lg-up {
+    width: 24px;
+    height: 24px;
+  }
+}

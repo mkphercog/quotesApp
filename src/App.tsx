@@ -25,7 +25,6 @@ import awsconfig from "./aws-exports";
 import { ROUTES } from "./api/routes";
 
 import "@aws-amplify/ui-react/styles.css";
-import "./App.css";
 
 Amplify.configure(awsconfig);
 

@@ -1,0 +1,9 @@
+@use "../../assets/styles/breakpoints.scss" as *;
+
+.contentWrapper {
+  width: 95% !important;
+
+  @include for-tablet-lg-up {
+    width: 60% !important;
+  }
+}

@@ -49,6 +49,8 @@
   },
   "devDependencies": {
     "gh-pages": "^6.0.0",
-    "react-router-dom": "^6.15.0"
+    "react-router-dom": "^6.15.0",
+    "sass": "^1.68.0",
+    "typescript-plugin-css-modules": "^5.0.1"
   }
 }
