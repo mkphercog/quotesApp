@@ -11,9 +11,8 @@ import { DesktopNav } from "./desktop-nav/desktop-nav";
 import { MobileNav } from "./mobile-nav/mobile-nav";
 
 import styles from "./topbar.module.scss";
-import { TopbarProps } from "./topbar.types";
 
-export const Topbar: FC<TopbarProps> = (props) => {
+export const Topbar: FC = () => {
   const { quoteList } = useGetQuotesListQuery();
 
   const queryClient = useQueryClient();
@@ -33,15 +32,9 @@ export const Topbar: FC<TopbarProps> = (props) => {
       <nav className={styles.navWrapper}>
         <AppName />
 
-        <DesktopNav
-          isRandomQuoteSectionVisible={isRandomQuoteSectionVisible}
-          colorModeProps={props}
-        />
+        <DesktopNav isRandomQuoteSectionVisible={isRandomQuoteSectionVisible} />
 
-        <MobileNav
-          isRandomQuoteSectionVisible={isRandomQuoteSectionVisible}
-          colorModeProps={props}
-        />
+        <MobileNav isRandomQuoteSectionVisible={isRandomQuoteSectionVisible} />
       </nav>
       <Outlet />
     </>

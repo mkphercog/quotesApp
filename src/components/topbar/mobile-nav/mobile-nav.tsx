@@ -3,19 +3,16 @@ import { ROUTES } from "api/routes";
 import { ColorModeToggler, SignOutButton } from "lib/components";
 import { FC } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { NavLinkClassNameProps, TopbarProps } from "../topbar.types";
+import { NavLinkClassNameProps } from "../topbar.types";
 
 import styles from "./mobile-nav.module.scss";
 
 interface MobileNavProps {
   isRandomQuoteSectionVisible: boolean;
-  //TODO delete after create colorModeProvider!
-  colorModeProps: TopbarProps;
 }
 
 export const MobileNav: FC<MobileNavProps> = ({
   isRandomQuoteSectionVisible,
-  colorModeProps,
 }) => {
   const navigate = useNavigate();
 
@@ -25,7 +22,7 @@ export const MobileNav: FC<MobileNavProps> = ({
 
   return (
     <div className={styles.mobileMenu}>
-      <ColorModeToggler {...colorModeProps} />
+      <ColorModeToggler />
 
       <Menu>
         <MenuItem onClick={() => navigate({ pathname: ROUTES.home })}>

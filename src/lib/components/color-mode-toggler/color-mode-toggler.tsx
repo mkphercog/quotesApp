@@ -1,31 +1,17 @@
-import { Button, ColorMode } from "@aws-amplify/ui-react";
+import { Button } from "@aws-amplify/ui-react";
 import { MoonFillIcon, SunFillIcon } from "lib/icons";
-import { Dispatch, FC, SetStateAction } from "react";
-import { setColorModeToLocalStorage } from "lib/utils";
+import { useColorMode } from "lib/providers/color-mode";
+import { FC } from "react";
 import styles from "./color-mode-toggler.module.scss";
 
-interface ColorModeTogglerProps {
-  colorMode: ColorMode;
-  setColorMode: Dispatch<SetStateAction<ColorMode>>;
-}
-
-export const ColorModeToggler: FC<ColorModeTogglerProps> = ({
-  colorMode,
-  setColorMode,
-}) => {
-  const handleToggleColorMode = () => {
-    setColorMode((currentMode) => {
-      const toggledColorMode = currentMode === "dark" ? "light" : "dark";
-      setColorModeToLocalStorage(toggledColorMode);
-      return toggledColorMode;
-    });
-  };
+export const ColorModeToggler: FC = () => {
+  const { colorMode, setCurrentColorMode } = useColorMode();
 
   return (
     <Button
       className={styles.colorModeToggleButton}
       variation="link"
-      onClick={handleToggleColorMode}
+      onClick={setCurrentColorMode}
     >
       {colorMode === "dark" ? (
         <MoonFillIcon className={styles.moonIcon} />

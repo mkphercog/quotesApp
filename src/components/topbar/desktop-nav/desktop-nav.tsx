@@ -2,18 +2,15 @@ import { ROUTES } from "api/routes";
 import { ColorModeToggler, SignOutButton } from "lib/components";
 import { FC } from "react";
 import { NavLink } from "react-router-dom";
-import { NavLinkClassNameProps, TopbarProps } from "../topbar.types";
+import { NavLinkClassNameProps } from "../topbar.types";
 import styles from "./desktop-nav.module.scss";
 
 interface DesktopNavProps {
   isRandomQuoteSectionVisible: boolean;
-  //TODO delete after create colorModeProvider!
-  colorModeProps: TopbarProps;
 }
 
 export const DesktopNav: FC<DesktopNavProps> = ({
   isRandomQuoteSectionVisible,
-  colorModeProps,
 }) => {
   const getDesktopNavLinkClasses = ({ isActive }: NavLinkClassNameProps) => {
     return `${styles.navLink} ${isActive && styles.activeDesktop}`;
@@ -34,7 +31,7 @@ export const DesktopNav: FC<DesktopNavProps> = ({
         </NavLink>
       )}
 
-      <ColorModeToggler {...colorModeProps} />
+      <ColorModeToggler />
       <SignOutButton />
     </div>
   );
