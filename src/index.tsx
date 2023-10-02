@@ -7,6 +7,7 @@ import { ONE_HOUR_IN_MILLISECONDS } from "lib/constants";
 import App from "./App";
 
 import "./assets/styles/index.scss";
+import { ColorModeProvider } from "lib/providers/color-mode";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,7 +24,9 @@ root.render(
   <React.StrictMode>
     <HashRouter>
       <QueryClientProvider client={queryClient}>
-        <App />
+        <ColorModeProvider>
+          <App />
+        </ColorModeProvider>
       </QueryClientProvider>
     </HashRouter>
   </React.StrictMode>
