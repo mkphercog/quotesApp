@@ -38,7 +38,7 @@
 .quoteDetailsDate {
   font-size: 10px !important;
   line-height: 10px !important;
-  text-align: end;
+  text-align: end !important;
 
   @include for-tablet-lg-up {
     font-size: 11px !important;
