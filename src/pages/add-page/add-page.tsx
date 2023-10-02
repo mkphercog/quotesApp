@@ -1,11 +1,12 @@
 import { Flex, Heading } from "@aws-amplify/ui-react";
 import { NavLink, Outlet } from "react-router-dom";
 import { ROUTES } from "../../api/routes";
+import cn from "classnames";
 
 import styles from "./add-page.module.scss";
 
 const getMobileNavLinkClasses = ({ isActive }: { isActive: boolean }) => {
-  return `${styles.navLink} ${isActive && styles.active}`;
+  return cn(styles.navLink, { [styles.active]: isActive });
 };
 
 export const AddPage = () => {

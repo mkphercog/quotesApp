@@ -3,6 +3,8 @@ import { ColorModeToggler, SignOutButton } from "lib/components";
 import { FC } from "react";
 import { NavLink } from "react-router-dom";
 import { NavLinkClassNameProps } from "../topbar.types";
+import cn from "classnames";
+
 import styles from "./desktop-nav.module.scss";
 
 interface DesktopNavProps {
@@ -13,13 +15,13 @@ export const DesktopNav: FC<DesktopNavProps> = ({
   isRandomQuoteSectionVisible,
 }) => {
   const getDesktopNavLinkClasses = ({ isActive }: NavLinkClassNameProps) => {
-    return `${styles.navLink} ${isActive && styles.activeDesktop}`;
+    return cn(styles.navLink, { [styles.activeDesktop]: isActive });
   };
 
   return (
     <div className={styles.desktopMenu}>
       <NavLink className={getDesktopNavLinkClasses} to={ROUTES.home}>
-        Lista cytatów
+        Lista
       </NavLink>
 
       <NavLink className={getDesktopNavLinkClasses} to={ROUTES.manage.root}>

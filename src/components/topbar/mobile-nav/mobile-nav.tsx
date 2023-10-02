@@ -4,6 +4,7 @@ import { ColorModeToggler, SignOutButton } from "lib/components";
 import { FC } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { NavLinkClassNameProps } from "../topbar.types";
+import cn from "classnames";
 
 import styles from "./mobile-nav.module.scss";
 
@@ -17,7 +18,7 @@ export const MobileNav: FC<MobileNavProps> = ({
   const navigate = useNavigate();
 
   const getMobileNavLinkClasses = ({ isActive }: NavLinkClassNameProps) => {
-    return `${styles.navLinkMobile} ${isActive && styles.activeMobile}`;
+    return cn(styles.navLinkMobile, { [styles.activeMobile]: isActive });
   };
 
   return (
@@ -27,7 +28,7 @@ export const MobileNav: FC<MobileNavProps> = ({
       <Menu>
         <MenuItem onClick={() => navigate({ pathname: ROUTES.home })}>
           <NavLink className={getMobileNavLinkClasses} to={ROUTES.home}>
-            Lista cytatów
+            Lista
           </NavLink>
         </MenuItem>
 

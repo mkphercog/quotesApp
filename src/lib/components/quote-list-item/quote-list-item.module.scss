@@ -1,0 +1,76 @@
+@use "../../../assets/styles/breakpoints.scss" as *;
+
+.quoteHeaderWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px;
+  gap: 10px;
+
+  @include for-tablet-lg-up() {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.quoteHeaderText {
+  font-size: 16px !important;
+  line-height: 24px !important;
+
+  @include for-tablet-lg-up {
+    font-size: 18px !important;
+    line-height: 27px !important;
+  }
+}
+
+.quoteHeaderBadge {
+  padding: 4px 12px !important;
+  font-size: 14px !important;
+  line-height: 20px !important;
+}
+
+.detailsWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.quoteDetailsDate {
+  font-size: 10px !important;
+  line-height: 10px !important;
+  text-align: end;
+
+  @include for-tablet-lg-up {
+    font-size: 11px !important;
+    line-height: 11px !important;
+  }
+}
+
+.quoteDetailsText {
+  font-size: 13px !important;
+  line-height: 18px !important;
+
+  @include for-tablet-lg-up {
+    font-size: 14px !important;
+    line-height: 20px !important;
+  }
+}
+
+.buttonsWrapper {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.button {
+  padding: 6px 8px !important;
+  font-size: 14px !important;
+  line-height: 20px !important;
+
+  @include for-tablet-lg-up {
+    padding: 8px 12px !important;
+    font-size: 16px !important;
+    line-height: 24px !important;
+  }
+}

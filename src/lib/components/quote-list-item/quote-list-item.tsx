@@ -3,7 +3,6 @@ import {
   Button,
   Expander,
   ExpanderItem,
-  Flex,
   Text,
 } from "@aws-amplify/ui-react";
 import { useDeleteQuoteMutation } from "api/quotes";
@@ -11,6 +10,8 @@ import { ROUTES } from "api/routes";
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { EagerQuoteDataModel } from "../../../models";
+
+import styles from "./quote-list-item.module.scss";
 
 interface QuoteListItemProps {
   quote: EagerQuoteDataModel;
@@ -31,47 +32,60 @@ export const QuoteListItem: FC<QuoteListItemProps> = ({ quote }) => {
     <Expander type="multiple">
       <ExpanderItem
         title={
-          <Flex width="100%" justifyContent="space-between" alignItems="center">
-            <Text margin="10px 0">"{quote.content}"</Text>
-            {quote.tag && <Badge marginRight="10px">{quote.tag?.name}</Badge>}
-          </Flex>
+          <div className={styles.quoteHeaderWrapper}>
+            <Text
+              className={styles.quoteHeaderText}
+            >{`"${quote.content}"`}</Text>
+            {quote.tag && (
+              <Badge className={styles.quoteHeaderBadge}>
+                {quote.tag.name}
+              </Badge>
+            )}
+          </div>
         }
         value={quote.id}
       >
-        <Text fontSize="xx-small" color="font.secondary" textAlign="end">
-          {createdAtValue}
-        </Text>
+        <Text className={styles.quoteDetailsDate}>{createdAtValue}</Text>
 
-        <Flex direction="column" gap="5px">
+        <div className={styles.detailsWrapper}>
           {quote.source?.author && (
-            <Text fontSize="small" color="font.secondary" display="inline">
+            <Text className={styles.quoteDetailsText}>
               Autor: {quote.source?.author}
             </Text>
           )}
           {quote.source?.title && (
-            <Text fontSize="small" color="font.secondary" display="inline">
+            <Text className={styles.quoteDetailsText}>
               Tytuł: {quote.source?.title}
             </Text>
           )}
 
           {!!quote.comment && (
-            <Text fontSize="small" color="font.secondary">
+            <Text className={styles.quoteDetailsText}>
               Komentarz: {quote.comment}
             </Text>
           )}
-        </Flex>
+        </div>
 
-        <Flex justifyContent="flex-end" marginTop="10px">
-          <Button onClick={() => navigator.clipboard.writeText(quote.content)}>
+        <div className={styles.buttonsWrapper}>
+          <Button
+            className={styles.button}
+            onClick={() => navigator.clipboard.writeText(quote.content)}
+          >
             Kopiuj
           </Button>
-          <Button onClick={() => handleNavigateToEditPage(quote.id)}>
+          <Button
+            className={styles.button}
+            onClick={() => handleNavigateToEditPage(quote.id)}
+          >
             Edytuj
           </Button>
-          <Button onClick={() => deleteQuoteDataMutation({ id: quote.id })}>
+          <Button
+            className={styles.button}
+            onClick={() => deleteQuoteDataMutation({ id: quote.id })}
+          >
             Usuń
           </Button>
-        </Flex>
+        </div>
       </ExpanderItem>
     </Expander>
   );

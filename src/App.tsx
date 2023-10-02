@@ -1,8 +1,4 @@
-import {
-  defaultDarkModeOverride,
-  ThemeProvider,
-  View,
-} from "@aws-amplify/ui-react";
+import { defaultDarkModeOverride, ThemeProvider } from "@aws-amplify/ui-react";
 import { ROUTES } from "api/routes";
 import {
   AddQuoteForm,
@@ -13,15 +9,15 @@ import {
 } from "components";
 import { useColorMode } from "lib/providers/color-mode";
 import { AddPage } from "pages/add-page/add-page";
-import { ListPage } from "pages/list-page";
 import { RandomQuotePage } from "pages/random-quote-page/random-quote-page";
 import { Route, Routes } from "react-router-dom";
 import { Amplify } from "aws-amplify";
 import { Authenticator, withAuthenticator } from "@aws-amplify/ui-react";
-
+import { QuotesListPage } from "pages";
 import awsconfig from "./aws-exports";
 
 import "@aws-amplify/ui-react/styles.css";
+import styles from "./App.module.scss";
 
 Amplify.configure(awsconfig);
 
@@ -36,14 +32,10 @@ export const App = () => {
   return (
     <Authenticator>
       <ThemeProvider theme={theme} colorMode={colorMode}>
-        <View
-          backgroundColor="background.primary"
-          minHeight="100vh"
-          padding="0"
-        >
+        <div className={styles.wrapper}>
           <Routes>
             <Route path={ROUTES.home} element={<Topbar />}>
-              <Route index element={<ListPage />} />
+              <Route index element={<QuotesListPage />} />
               <Route path={ROUTES.manage.root} element={<AddPage />}>
                 <Route index element={<AddQuoteForm />} />
                 <Route
@@ -61,7 +53,7 @@ export const App = () => {
               <Route path={ROUTES.other} element={<div>No Page</div>} />
             </Route>
           </Routes>
-        </View>
+        </div>
       </ThemeProvider>
     </Authenticator>
   );

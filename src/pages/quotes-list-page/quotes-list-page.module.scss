@@ -1,0 +1,37 @@
+@use "../../assets/styles/breakpoints.scss" as *;
+
+.listWrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  margin: 0 auto;
+  gap: 15px;
+  width: 100%;
+
+  @include for-tablet-lg-up {
+    width: 70%;
+    gap: 20px;
+    padding: 50px;
+  }
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.loader {
+  width: 100px !important;
+  height: 100px !important;
+}
+
+.noQuotes {
+  width: fit-content;
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: var(--amplify-colors-yellow-10);
+  border-radius: 10px;
+  text-align: center;
+}

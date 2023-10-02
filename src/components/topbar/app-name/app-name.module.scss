@@ -14,12 +14,14 @@
 }
 
 .name {
-  font-size: 17px !important;
+  font-size: 18px !important;
+  line-height: 27px !important;
   font-weight: bold !important;
   color: var(--amplify-colors-font-secondary) !important;
 
   @include for-tablet-lg-up {
     font-size: 20px !important;
+    line-height: 30px !important;
   }
 }
 
