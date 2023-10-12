@@ -7,6 +7,7 @@ import {
 } from "@aws-amplify/ui-react";
 import { useDeleteQuoteMutation } from "api/quotes";
 import { ROUTES } from "api/routes";
+import { copyTextToClipboard } from "lib/utils";
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { EagerQuoteDataModel } from "../../../models";
@@ -69,7 +70,7 @@ export const QuoteListItem: FC<QuoteListItemProps> = ({ quote }) => {
         <div className={styles.buttonsWrapper}>
           <Button
             className={styles.button}
-            onClick={() => navigator.clipboard.writeText(quote.content)}
+            onClick={() => copyTextToClipboard(quote.content)}
           >
             Kopiuj
           </Button>
