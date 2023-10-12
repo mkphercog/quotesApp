@@ -18,16 +18,25 @@ import awsconfig from "./aws-exports";
 
 import "@aws-amplify/ui-react/styles.css";
 import styles from "./App.module.scss";
+import { useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
 
 Amplify.configure(awsconfig);
 
 export const App = () => {
   const { colorMode } = useColorMode();
+  const queryClient = useQueryClient();
 
   const theme = {
     name: "my-theme",
     overrides: [defaultDarkModeOverride],
   };
+
+  useEffect(() => {
+    (async () => {
+      await queryClient.invalidateQueries();
+    })();
+  }, [queryClient]);
 
   return (
     <Authenticator>

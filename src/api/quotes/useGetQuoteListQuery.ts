@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { API, graphqlOperation } from "aws-amplify";
+import { getSortedListByCreationDate } from "lib/utils";
 import { getQuoteDataModel, listQuoteDataModels } from "../../graphql/queries";
 import { EagerQuoteDataModel } from "../../models";
 import { QueryKeys } from "../query-keys";
@@ -24,7 +25,10 @@ export const useGetQuotesListQuery = () => {
     },
   });
 
-  return { quoteList, isLoading };
+  return {
+    quoteList: getSortedListByCreationDate(quoteList),
+    isLoading,
+  };
 };
 
 interface QuoteDetailsResponseType {

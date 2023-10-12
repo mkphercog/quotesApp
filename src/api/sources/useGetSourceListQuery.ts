@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { API, graphqlOperation } from "aws-amplify";
+import { getSortedListByCreationDate } from "lib/utils";
 import { listSourceData } from "../../graphql/queries";
 import { EagerSourceData } from "../../models";
 import { QueryKeys } from "../query-keys";
@@ -24,5 +25,5 @@ export const useGetSourceListQuery = () => {
     },
   });
 
-  return { sourceList, isLoading };
+  return { sourceList: getSortedListByCreationDate(sourceList), isLoading };
 };

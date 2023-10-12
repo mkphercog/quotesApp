@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { API, graphqlOperation } from "aws-amplify";
+import { getSortedListByCreationDate } from "lib/utils";
 import { listTagData } from "../../graphql/queries";
 import { EagerTagData } from "../../models";
 import { QueryKeys } from "../query-keys";
@@ -28,5 +29,8 @@ export const useGetTagListQuery = () => {
     },
   });
 
-  return { tagList, isLoading: isLoading || isFetching };
+  return {
+    tagList: getSortedListByCreationDate(tagList),
+    isLoading: isLoading || isFetching,
+  };
 };

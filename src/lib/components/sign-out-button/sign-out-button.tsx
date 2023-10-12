@@ -15,13 +15,12 @@ export const SignOutButton: FC<SignOutButtonProps> = ({ type, className }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const logOut = async () => {
+  const logOut = () => {
     if (location.pathname.includes("editQuote")) {
       navigate({ pathname: ROUTES.home });
     }
 
-    await queryClient.invalidateQueries();
-    queryClient.removeQueries();
+    queryClient.clear();
     signOut();
   };
 
