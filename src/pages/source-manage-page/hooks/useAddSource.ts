@@ -15,17 +15,20 @@ export const useAddSource = () => {
     validationSchema,
   });
 
+  const clearForm = () => formParams.reset(defaultValues);
+
   const handleAddSource = (newSourceData: SourceValidationFormType) => {
     addSourceDataMutation({
       title: newSourceData.title?.trim(),
       author: newSourceData.author?.trim(),
     });
-    formParams.reset();
+    clearForm();
   };
 
   return {
     formParams,
     handleAddSource,
     isAddSourceMutationLoading,
+    clearForm,
   };
 };

@@ -14,6 +14,7 @@ import {
   UseFormWatch,
 } from "react-hook-form";
 import { EagerQuoteDataModel, EagerSourceData, EagerTagData } from "models";
+import { RequiredHint } from "lib/components/form";
 
 type FieldErrorTypes = Extract<FieldError["type"], "required" | "maxLength">;
 
@@ -141,9 +142,7 @@ export const QuoteForm: FC<QuoteFormProps> = ({
             ))}
           </SelectField>
         </Flex>
-        <Text marginTop="10px" fontSize="x-small">
-          * pole wymagane
-        </Text>
+        <RequiredHint />
 
         <Button
           marginTop="20px"

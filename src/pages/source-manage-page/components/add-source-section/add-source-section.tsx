@@ -1,11 +1,12 @@
 import { Button, Loader, Text } from "@aws-amplify/ui-react";
-import { BaseForm, FormTextInput } from "lib/components/form";
+import { BaseForm, FormTextInput, RequiredHint } from "lib/components/form";
+import { SOURCE_VALUE_MAX_LENGTH } from "pages/source-manage-page/validation";
 import { useAddSource } from "../../hooks";
 
 import styles from "./add-source-section.module.scss";
 
 export const AddSourceSection = () => {
-  const { formParams, isAddSourceMutationLoading, handleAddSource } =
+  const { formParams, isAddSourceMutationLoading, handleAddSource, clearForm } =
     useAddSource();
 
   const isErrorInTitle = !!formParams.formState.errors.title;
@@ -27,7 +28,7 @@ export const AddSourceSection = () => {
         name="title"
         labelText="Tytuł"
         onChange={() => formParams.clearErrors()}
-        maxLength={100}
+        maxLength={SOURCE_VALUE_MAX_LENGTH}
         isRequired
       />
 
@@ -36,13 +37,11 @@ export const AddSourceSection = () => {
         name="author"
         labelText="Autor"
         onChange={() => formParams.clearErrors()}
-        maxLength={100}
+        maxLength={SOURCE_VALUE_MAX_LENGTH}
         isRequired
       />
 
-      <Text className={styles.requiredHint}>
-        * przynajmniej jedno pole jest wymagane
-      </Text>
+      <RequiredHint message="przynajmniej jedno pole jest wymagane" />
 
       <div className={styles.actionsWrapper}>
         <Button
@@ -58,7 +57,7 @@ export const AddSourceSection = () => {
         </Button>
 
         {(isError || formParams.formState.isDirty) && (
-          <Button onClick={() => formParams.reset()}>Wyczyść</Button>
+          <Button onClick={clearForm}>Wyczyść</Button>
         )}
       </div>
     </BaseForm>

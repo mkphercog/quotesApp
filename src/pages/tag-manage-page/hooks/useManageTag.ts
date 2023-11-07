@@ -4,43 +4,41 @@ import {
   useUpdateTagMutation,
 } from "api/tags";
 import { EagerTagData } from "models";
-import { useForm } from "react-hook-form";
+import { useState } from "react";
 
-type TagIdType = Pick<EagerTagData, "id">;
 type TagBasicDataType = Pick<EagerTagData, "name">;
 
 export const useManageTag = () => {
+  const [currentTagId, setCurrentTagId] = useState<string | null>(null);
   const { tagList, isLoading } = useGetTagListQuery();
   const { updateTagDataMutation, isUpdateTagMutationLoading } =
     useUpdateTagMutation();
   const { deleteTagDataMutation, isDeleteTagMutationLoading } =
     useDeleteTagMutation();
 
-  const formData = useForm<TagBasicDataType>({ mode: "onChange" });
-
-  const handleUpdateTag = (
-    updateTagData: TagBasicDataType,
-    { id }: TagIdType
-  ) => {
-    updateTagDataMutation({
-      id,
+  const handleUpdateTag = async (updateTagData: TagBasicDataType) => {
+    await updateTagDataMutation({
+      id: currentTagId as string,
       name: updateTagData.name?.trim(),
     });
+    setCurrentTagId(null);
   };
 
-  const handleDeleteTag = ({ id }: TagIdType) => {
+  const handleDeleteTag = () => {
     deleteTagDataMutation({
-      id,
+      id: currentTagId as string,
     });
   };
 
   return {
-    ...formData,
     tagList,
+    currentTagId,
+    setCurrentTagId,
     isTagListLoading: isLoading,
     handleUpdateTag,
-    isUpdateTagMutationLoading,
     handleDeleteTag,
-    isDeleteTagMutationLoading,
+    isManageTagLoading:
+      isUpdateTagMutationLoading || isDeleteTagMutationLoading,
+    handleCancel: () => setCurrentTagId(null),
   };
 };

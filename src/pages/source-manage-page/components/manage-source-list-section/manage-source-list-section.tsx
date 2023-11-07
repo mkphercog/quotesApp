@@ -4,14 +4,13 @@ import {
   ManageListCardActions,
   ManageListWrapper,
 } from "lib/components/manage";
-
 import { defaultValues, validationSchema } from "../../validation";
 import { useEffect } from "react";
 import { useManageSource } from "../../hooks";
-
-import styles from "./manage-source-list-section.module.scss";
 import { NotEditableSourceContent } from "./not-editable-source-content/not-editable-source-content";
 import { EditableSourceContent } from "./editable-source-content/editable-source-content";
+
+import styles from "./manage-source-list-section.module.scss";
 
 export const ManageSourceListSection = () => {
   const {
@@ -49,8 +48,8 @@ export const ManageSourceListSection = () => {
     );
 
     formParams.reset({
-      author: currentSource?.author as string,
-      title: currentSource?.title as string,
+      author: currentSource?.author || "",
+      title: currentSource?.title || "",
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentSourceId]);

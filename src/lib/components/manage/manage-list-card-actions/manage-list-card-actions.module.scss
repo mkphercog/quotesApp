@@ -6,26 +6,26 @@
 }
 
 .goBackButton {
-  background-color: transparent;
+  background-color: transparent !important;
 }
 
 .submitButton {
-  margin-left: auto;
-  margin-right: 10px;
+  margin-left: auto !important;
+  margin-right: 10px !important;
 }
 
 .deleteButton {
-  background-color: transparent;
-  color: var(--amplify-colors-red-90);
-  border-color: var(--amplify-colors-red-90);
+  background-color: transparent !important;
+  color: var(--amplify-colors-red-90) !important;
+  border-color: var(--amplify-colors-red-90) !important;
 
   &:hover {
-    color: var(--amplify-colors-red-80);
-    border-color: var(--amplify-colors-red-80);
+    color: var(--amplify-colors-red-80) !important;
+    border-color: var(--amplify-colors-red-80) !important;
   }
 
   &:disabled {
-    color: var(--amplify-internal-button-disabled-color);
-    border-color: var(--amplify-colors-red-40);
+    color: var(--amplify-internal-button-disabled-color) !important;
+    border-color: var(--amplify-colors-red-40) !important;
   }
 }

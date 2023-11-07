@@ -1,9 +1,6 @@
 import { FC } from "react";
-import { Text } from "@aws-amplify/ui-react";
-import { FormTextInput } from "lib/components/form";
+import { FormTextInput, RequiredHint } from "lib/components/form";
 import { SOURCE_VALUE_MAX_LENGTH } from "pages/source-manage-page/validation";
-
-import styles from "./editable-source-content.module.scss";
 
 interface EditableSourceContentProps {
   isCurrentItemEdited: boolean;
@@ -32,9 +29,7 @@ export const EditableSourceContent: FC<EditableSourceContentProps> = ({
         isRequired
       />
 
-      <Text className={styles.requiredHint}>
-        * przynajmniej jedno pole jest wymagane
-      </Text>
+      <RequiredHint message="przynajmniej jedno pole jest wymagane" />
     </>
   );
 };
