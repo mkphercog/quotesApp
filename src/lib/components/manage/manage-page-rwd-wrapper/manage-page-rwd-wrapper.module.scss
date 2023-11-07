@@ -1,0 +1,36 @@
+@use "../../../../assets/styles/breakpoints.scss" as *;
+
+.wrapper {
+  display: grid;
+  grid-template-rows: repeat(2, auto);
+  grid-template-areas:
+    "addingSection"
+    "listSection";
+  gap: 10px;
+
+  @include for-tablet-lg-up {
+    grid-template-areas: "listSection addingSection";
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: calc(100vh - 250px);
+    width: 70%;
+
+    margin: 0 auto;
+  }
+}
+
+.listSection,
+.addingSection {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: var(--amplify-shadows-medium);
+}
+
+.listSection {
+  grid-area: listSection;
+  overflow: auto;
+}
+
+.addingSection {
+  grid-area: addingSection;
+  align-self: start;
+}

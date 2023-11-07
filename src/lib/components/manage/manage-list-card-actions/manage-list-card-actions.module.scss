@@ -1,0 +1,31 @@
+.actionsWrapper {
+  display: grid;
+  grid-template-columns: min-content 1fr min-content;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.goBackButton {
+  background-color: transparent;
+}
+
+.submitButton {
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+.deleteButton {
+  background-color: transparent;
+  color: var(--amplify-colors-red-90);
+  border-color: var(--amplify-colors-red-90);
+
+  &:hover {
+    color: var(--amplify-colors-red-80);
+    border-color: var(--amplify-colors-red-80);
+  }
+
+  &:disabled {
+    color: var(--amplify-internal-button-disabled-color);
+    border-color: var(--amplify-colors-red-40);
+  }
+}

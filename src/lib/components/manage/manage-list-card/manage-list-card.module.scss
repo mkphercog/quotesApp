@@ -1,0 +1,11 @@
+.wrapper {
+  margin-top: 20px;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: var(--amplify-colors-orange-20);
+  box-shadow: var(--amplify-shadows-medium);
+}
+
+.activeWrapper {
+  background-color: var(--amplify-colors-orange-40);
+}

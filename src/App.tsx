@@ -1,25 +1,19 @@
 import { defaultDarkModeOverride, ThemeProvider } from "@aws-amplify/ui-react";
 import { ROUTES } from "api/routes";
-import {
-  AddQuoteForm,
-  ManageSource,
-  ManageTag,
-  Topbar,
-  UpdateQuoteForm,
-} from "components";
+import { AddQuoteForm, ManageTag, Topbar, UpdateQuoteForm } from "components";
 import { useColorMode } from "lib/providers/color-mode";
-import { AddPage } from "pages/add-page/add-page";
-import { RandomQuotePage } from "pages/random-quote-page/random-quote-page";
+
 import { Route, Routes } from "react-router-dom";
 import { Amplify } from "aws-amplify";
 import { Authenticator, withAuthenticator } from "@aws-amplify/ui-react";
-import { QuotesListPage } from "pages";
+import { AddPage, QuotesListPage, RandomQuotePage } from "pages";
 import awsconfig from "./aws-exports";
 
 import "@aws-amplify/ui-react/styles.css";
 import styles from "./App.module.scss";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
+import { SourceManagePage } from "pages/source-manage-page/source-manage-page";
 
 Amplify.configure(awsconfig);
 
@@ -51,7 +45,10 @@ export const App = () => {
                   path={ROUTES.manage.addQuote}
                   element={<AddQuoteForm />}
                 />
-                <Route path={ROUTES.manage.source} element={<ManageSource />} />
+                <Route
+                  path={ROUTES.manage.source}
+                  element={<SourceManagePage />}
+                />
                 <Route path={ROUTES.manage.tag} element={<ManageTag />} />
               </Route>
               <Route

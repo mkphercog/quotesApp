@@ -7,13 +7,15 @@ import {
   TextAreaField,
 } from "@aws-amplify/ui-react";
 import {
+  FieldError,
   FormState,
   UseFormRegister,
   UseFormReset,
   UseFormWatch,
 } from "react-hook-form";
 import { EagerQuoteDataModel, EagerSourceData, EagerTagData } from "models";
-import { FieldErrorTypes } from "components/manage-source/manage-source.constants";
+
+type FieldErrorTypes = Extract<FieldError["type"], "required" | "maxLength">;
 
 export type BasicQuoteDataType = Pick<
   EagerQuoteDataModel,

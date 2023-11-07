@@ -4,44 +4,42 @@ import {
   useUpdateSourceMutation,
 } from "api/sources";
 import { EagerSourceData } from "models";
-import { useForm } from "react-hook-form";
+import { useState } from "react";
 
-type SourceIdType = Pick<EagerSourceData, "id">;
 type SourceBasicDataType = Pick<EagerSourceData, "title" | "author">;
 
 export const useManageSource = () => {
+  const [currentSourceId, setCurrentSourceId] = useState<string | null>(null);
   const { sourceList, isLoading } = useGetSourceListQuery();
   const { updateSourceDataMutation, isUpdateSourceMutationLoading } =
     useUpdateSourceMutation();
   const { deleteSourceDataMutation, isDeleteSourceMutationLoading } =
     useDeleteSourceMutation();
 
-  const formData = useForm<SourceBasicDataType>({ mode: "onChange" });
-
-  const handleUpdateSource = (
-    updateSourceData: SourceBasicDataType,
-    { id }: SourceIdType
-  ) => {
-    updateSourceDataMutation({
-      id,
+  const handleUpdateSource = async (updateSourceData: SourceBasicDataType) => {
+    await updateSourceDataMutation({
+      id: currentSourceId as string,
       title: updateSourceData.title?.trim(),
       author: updateSourceData.author?.trim(),
     });
+    setCurrentSourceId(null);
   };
 
-  const handleDeleteSource = ({ id }: SourceIdType) => {
+  const handleDeleteSource = () => {
     deleteSourceDataMutation({
-      id,
+      id: currentSourceId as string,
     });
   };
 
   return {
-    ...formData,
     sourceList,
+    currentSourceId,
+    setCurrentSourceId,
     isSourceListLoading: isLoading,
     handleUpdateSource,
-    isUpdateSourceMutationLoading,
     handleDeleteSource,
-    isDeleteSourceMutationLoading,
+    isManageSourceLoading:
+      isUpdateSourceMutationLoading || isDeleteSourceMutationLoading,
+    handleCancel: () => setCurrentSourceId(null),
   };
 };

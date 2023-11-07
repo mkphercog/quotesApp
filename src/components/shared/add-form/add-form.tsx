@@ -30,8 +30,9 @@ export const AddForm: FC<PropsWithChildren<AddFormProps>> = ({
         <Button marginTop="20px" type="submit" disabled={!isDirty || isLoading}>
           Dodaj
         </Button>
+
         {(isError || isDirty) && (
-          <Button marginLeft="20px" onClick={() => reset()}>
+          <Button marginLeft="20px" onClick={reset}>
             Wyczyść
           </Button>
         )}

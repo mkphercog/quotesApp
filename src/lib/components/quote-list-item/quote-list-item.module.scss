@@ -8,7 +8,7 @@
   padding: 10px;
   gap: 10px;
 
-  @include for-tablet-lg-up() {
+  @include for-tablet-lg-up {
     flex-direction: row;
     justify-content: space-between;
   }

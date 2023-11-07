@@ -1,0 +1,14 @@
+.disabledInput {
+  & > div > div > input {
+    background-color: transparent !important;
+    color: var(--amplify-components-fieldcontrol-color) !important;
+    border-color: var(
+      --amplify-components-fieldcontrol-border-color
+    ) !important;
+  }
+}
+
+.settingsButton {
+  width: fit-content;
+  margin-top: 20px;
+}
