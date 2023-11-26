@@ -1,9 +1,11 @@
+import { useQueryClient } from "@tanstack/react-query";
+import { Route, Routes, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import { defaultDarkModeOverride, ThemeProvider } from "@aws-amplify/ui-react";
 import { ROUTES } from "api/routes";
-import { AddQuoteForm, Topbar, UpdateQuoteForm } from "components";
+import { AddQuoteForm, UpdateQuoteForm } from "components";
+import { Topbar } from "lib/components";
 import { useColorMode } from "lib/providers/color-mode";
-
-import { Route, Routes, useLocation } from "react-router-dom";
 import { Amplify } from "aws-amplify";
 import { Authenticator, withAuthenticator } from "@aws-amplify/ui-react";
 import {
@@ -15,11 +17,10 @@ import {
 } from "pages";
 import awsconfig from "./aws-exports";
 
+import cn from "classnames";
+
 import "@aws-amplify/ui-react/styles.css";
 import styles from "./App.module.scss";
-import { useQueryClient } from "@tanstack/react-query";
-import { useEffect } from "react";
-import cn from "classnames";
 
 Amplify.configure(awsconfig);
 
