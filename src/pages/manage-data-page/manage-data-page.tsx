@@ -1,21 +1,17 @@
-import { Flex, Heading } from "@aws-amplify/ui-react";
 import { NavLink, Outlet } from "react-router-dom";
 import { ROUTES } from "../../api/routes";
 import cn from "classnames";
 
-import styles from "./add-page.module.scss";
+import styles from "./manage-data-page.module.scss";
 
 const getMobileNavLinkClasses = ({ isActive }: { isActive: boolean }) => {
   return cn(styles.navLink, { [styles.active]: isActive });
 };
 
-export const AddPage = () => {
+export const ManageDataPage = () => {
   return (
-    <Flex direction="column" margin="20px 20px 0">
-      <Heading textAlign="center" fontSize="20px" padding="10px">
-        DODAJ
-      </Heading>
-      <Flex width="100%" justifyContent="center">
+    <div className={styles.wrapper}>
+      <div className={styles.navWrapper}>
         <NavLink
           className={getMobileNavLinkClasses}
           to={ROUTES.manage.addQuote}
@@ -26,10 +22,12 @@ export const AddPage = () => {
           Źródło
         </NavLink>
         <NavLink className={getMobileNavLinkClasses} to={ROUTES.manage.tag}>
-          Kategorię
+          Kategoria
         </NavLink>
-      </Flex>
-      <Outlet />
-    </Flex>
+      </div>
+      <div className={styles.content}>
+        <Outlet />
+      </div>
+    </div>
   );
 };

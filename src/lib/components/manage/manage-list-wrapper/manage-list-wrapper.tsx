@@ -19,7 +19,9 @@ export const ManageListWrapper: FC<ManageListWrapperProps> = ({
         Lista dostępnych {isLoading && <Loader />}
       </Heading>
 
-      {isEmptyList && <Text>Lista jest pusta.</Text>}
+      {isEmptyList && (
+        <Text className={styles.emptyListHint}>Lista jest pusta.</Text>
+      )}
 
       {!isEmptyList && children}
     </div>

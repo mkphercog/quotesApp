@@ -1,0 +1,48 @@
+@use "../../assets/styles/breakpoints.scss" as *;
+
+.wrapper {
+  height: calc(100% - 65px);
+  padding: 10px;
+  overflow: hidden;
+
+  @include for-tablet-lg-up {
+    padding: 20px;
+  }
+}
+
+.navWrapper {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 5px;
+  justify-content: center;
+
+  @include for-tablet-lg-up {
+    gap: 15px;
+  }
+}
+
+.navLink {
+  padding: 5px 15px;
+  text-decoration: none;
+  color: var(--amplify-colors-font-secondary);
+  text-transform: uppercase;
+  transition: 250ms;
+  font-weight: 500;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+
+  &:hover {
+    color: var(--amplify-colors-brand-primary-80);
+  }
+}
+
+.active {
+  color: var(--amplify-colors-brand-primary-80);
+  background-color: var(--amplify-colors-overlay-5);
+}
+
+.content {
+  height: calc(100% - 34px);
+  background-color: var(--amplify-colors-overlay-5);
+  border-radius: 10px;
+}
