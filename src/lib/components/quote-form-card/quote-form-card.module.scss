@@ -1,0 +1,33 @@
+@use "../../../assets/styles/breakpoints.scss" as *;
+
+.wrapper {
+  padding: 20px;
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 10px;
+  background-color: var(--amplify-colors-yellow-10);
+  box-shadow: var(--amplify-shadows-medium);
+
+  @include for-tablet-lg-up {
+    width: 50%;
+  }
+}
+
+.comment {
+  margin-top: 20px !important;
+}
+
+.selectsWrapper {
+  display: grid;
+  row-gap: 20px;
+  margin-top: 20px;
+
+  @include for-tablet-lg-up {
+    column-gap: 24px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.submitButton {
+  margin: 20px 10px 0 0 !important;
+}

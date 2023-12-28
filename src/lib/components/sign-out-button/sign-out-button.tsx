@@ -17,7 +17,7 @@ export const SignOutButton: FC<SignOutButtonProps> = ({ type, className }) => {
 
   const logOut = () => {
     if (location.pathname.includes("editQuote")) {
-      navigate({ pathname: ROUTES.home });
+      navigate({ pathname: ROUTES.home() });
     }
 
     queryClient.clear();

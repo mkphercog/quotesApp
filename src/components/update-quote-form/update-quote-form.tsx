@@ -24,8 +24,7 @@ export const UpdateQuoteForm = () => {
 
   useEffect(() => {
     reset(quoteDetails);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [quoteDetails]);
+  }, [quoteDetails, reset]);
 
   const isError = !!Object.entries(formState.errors).length;
 
@@ -40,7 +39,7 @@ export const UpdateQuoteForm = () => {
       <QuoteForm
         onSubmit={handleSubmit((data) => {
           handleUpdateQuote(data, { id: quoteDetails.id });
-          navigate({ pathname: ROUTES.home });
+          navigate({ pathname: ROUTES.home() });
         })}
         submitButtonText="Uaktualnij"
         sourceList={sourceList || []}
@@ -52,7 +51,9 @@ export const UpdateQuoteForm = () => {
         reset={reset}
         watch={watch}
       />
-      <Button onClick={() => navigate({ pathname: ROUTES.home })}>Wróć</Button>
+      <Button onClick={() => navigate({ pathname: ROUTES.home() })}>
+        Wróć
+      </Button>
     </Flex>
   );
 };

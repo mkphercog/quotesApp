@@ -20,15 +20,15 @@ export const DesktopNav: FC<DesktopNavProps> = ({
 
   return (
     <div className={styles.desktopMenu}>
-      <NavLink className={getDesktopNavLinkClasses} to={ROUTES.home}>
+      <NavLink className={getDesktopNavLinkClasses} to={ROUTES.home()}>
         Lista
       </NavLink>
 
-      <NavLink className={getDesktopNavLinkClasses} to={ROUTES.manage.root}>
+      <NavLink className={getDesktopNavLinkClasses} to={ROUTES.manage.root()}>
         Zarządzaj
       </NavLink>
       {isRandomQuoteSectionVisible && (
-        <NavLink className={getDesktopNavLinkClasses} to={ROUTES.randomQuote}>
+        <NavLink className={getDesktopNavLinkClasses} to={ROUTES.randomQuote()}>
           Wylosuj
         </NavLink>
       )}

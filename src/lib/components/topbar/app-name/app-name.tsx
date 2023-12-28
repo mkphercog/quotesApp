@@ -13,7 +13,7 @@ export const AppName: FC = () => {
     <div className={styles.wrapper}>
       <Text
         className={styles.name}
-        onClick={() => navigate({ pathname: ROUTES.home })}
+        onClick={() => navigate({ pathname: ROUTES.home() })}
       >
         Quotes App
         <ChatQuoteFillIcon className={styles.icon} />

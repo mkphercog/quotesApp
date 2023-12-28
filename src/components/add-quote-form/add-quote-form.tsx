@@ -20,10 +20,9 @@ export const AddQuoteForm = () => {
 
   useEffect(() => {
     navigate({
-      pathname: ROUTES.manage.addQuote,
+      pathname: ROUTES.manage.addQuote(),
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname]);
+  }, [location.pathname, navigate]);
 
   const isError = !!Object.entries(formState.errors).length;
 

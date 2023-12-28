@@ -1,14 +1,15 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { defaultDarkModeOverride, ThemeProvider } from "@aws-amplify/ui-react";
 import { ROUTES } from "api/routes";
-import { AddQuoteForm, UpdateQuoteForm } from "components";
+import { UpdateQuoteForm } from "components";
 import { Topbar } from "lib/components";
 import { useColorMode } from "lib/providers/color-mode";
 import { Amplify } from "aws-amplify";
 import { Authenticator, withAuthenticator } from "@aws-amplify/ui-react";
 import {
+  AddQuotePage,
   ManageDataPage,
   QuotesListPage,
   RandomQuotePage,
@@ -51,25 +52,31 @@ export const App = () => {
           })}
         >
           <Routes>
-            <Route path={ROUTES.home} element={<Topbar />}>
+            <Route path={ROUTES.home()} element={<Topbar />}>
               <Route index element={<QuotesListPage />} />
-              <Route path={ROUTES.manage.root} element={<ManageDataPage />}>
-                <Route index element={<AddQuoteForm />} />
+              <Route path={ROUTES.manage.root()} element={<ManageDataPage />}>
                 <Route
-                  path={ROUTES.manage.addQuote}
-                  element={<AddQuoteForm />}
+                  index
+                  element={<Navigate to={ROUTES.manage.addQuote()} />}
                 />
                 <Route
-                  path={ROUTES.manage.source}
+                  path={ROUTES.manage.addQuote()}
+                  element={<AddQuotePage />}
+                />
+                <Route
+                  path={ROUTES.manage.source()}
                   element={<SourceManagePage />}
                 />
-                <Route path={ROUTES.manage.tag} element={<TagManagePage />} />
+                <Route path={ROUTES.manage.tag()} element={<TagManagePage />} />
               </Route>
               <Route
-                path={ROUTES.manage.editQuoteRoot}
+                path={ROUTES.manage.editQuoteRoot()}
                 element={<UpdateQuoteForm />}
               />
-              <Route path={ROUTES.randomQuote} element={<RandomQuotePage />} />
+              <Route
+                path={ROUTES.randomQuote()}
+                element={<RandomQuotePage />}
+              />
               <Route path={ROUTES.other} element={<div>No Page</div>} />
             </Route>
           </Routes>

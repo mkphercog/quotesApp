@@ -14,14 +14,17 @@ export const ManageDataPage = () => {
       <div className={styles.navWrapper}>
         <NavLink
           className={getMobileNavLinkClasses}
-          to={ROUTES.manage.addQuote}
+          to={ROUTES.manage.addQuote()}
         >
           Cytat
         </NavLink>
-        <NavLink className={getMobileNavLinkClasses} to={ROUTES.manage.source}>
+        <NavLink
+          className={getMobileNavLinkClasses}
+          to={ROUTES.manage.source()}
+        >
           Źródło
         </NavLink>
-        <NavLink className={getMobileNavLinkClasses} to={ROUTES.manage.tag}>
+        <NavLink className={getMobileNavLinkClasses} to={ROUTES.manage.tag()}>
           Kategoria
         </NavLink>
       </div>

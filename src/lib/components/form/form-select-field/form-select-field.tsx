@@ -1,49 +1,40 @@
-import { Loader, Text, TextAreaField } from "@aws-amplify/ui-react";
+import { Loader, SelectField, Text } from "@aws-amplify/ui-react";
 import { ChangeEventHandler, FC } from "react";
 import { useController } from "react-hook-form";
 
-import styles from "./form-textarea.module.scss";
+import styles from "./form-select-field.module.scss";
 
-type FormTextareaProps = {
+interface FormSelectFieldProps {
   labelText: string;
   name: string;
+  options: { id: string; name: string }[];
   className?: string;
-  maxLength?: number;
   isRequired?: boolean;
-  showCounter?: boolean;
-  disabled?: boolean;
-  value?: string | number | readonly string[] | undefined;
   isLoading?: boolean;
-  onChange?: ChangeEventHandler<HTMLTextAreaElement>;
-};
+  disabled?: boolean;
+  onChange?: ChangeEventHandler<HTMLSelectElement>;
+}
 
-export const FormTextarea: FC<FormTextareaProps> = ({
+export const FormSelectField: FC<FormSelectFieldProps> = ({
   labelText,
   name,
+  options,
   className,
-  maxLength,
-  isRequired = false,
-  showCounter = true,
+  isRequired,
   disabled,
-  value,
-  isLoading = false,
+  isLoading,
   onChange,
 }) => {
   const { field, fieldState } = useController({ name });
 
   return (
-    <TextAreaField
+    <SelectField
       className={className}
       label={
         <div className={styles.labelWrapper}>
           <Text>
             {labelText} {isRequired && " *"} {isLoading && <Loader />}
           </Text>
-          {showCounter && maxLength && (
-            <Text fontSize="x-small">{`${
-              field?.value?.length ?? 0
-            }/${maxLength}`}</Text>
-          )}
         </div>
       }
       hasError={!!fieldState.error}
@@ -53,9 +44,13 @@ export const FormTextarea: FC<FormTextareaProps> = ({
         field.onChange(event);
         onChange?.(event);
       }}
-      maxLength={maxLength ? maxLength + 10 : undefined}
       disabled={disabled}
-      value={value || field.value}
-    />
+    >
+      <option value="" label="-" />
+
+      {options.map((option) => (
+        <option key={option.id} value={option.id} label={option.name} />
+      ))}
+    </SelectField>
   );
 };

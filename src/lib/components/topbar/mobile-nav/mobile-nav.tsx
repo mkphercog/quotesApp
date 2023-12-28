@@ -26,23 +26,28 @@ export const MobileNav: FC<MobileNavProps> = ({
       <ColorModeToggler />
 
       <Menu>
-        <MenuItem onClick={() => navigate({ pathname: ROUTES.home })}>
-          <NavLink className={getMobileNavLinkClasses} to={ROUTES.home}>
+        <MenuItem onClick={() => navigate({ pathname: ROUTES.home() })}>
+          <NavLink className={getMobileNavLinkClasses} to={ROUTES.home()}>
             Lista
           </NavLink>
         </MenuItem>
 
-        <MenuItem onClick={() => navigate({ pathname: ROUTES.manage.root })}>
-          <NavLink className={getMobileNavLinkClasses} to={ROUTES.manage.root}>
+        <MenuItem onClick={() => navigate({ pathname: ROUTES.manage.root() })}>
+          <NavLink
+            className={getMobileNavLinkClasses}
+            to={ROUTES.manage.root()}
+          >
             Zarządzaj
           </NavLink>
         </MenuItem>
 
         {isRandomQuoteSectionVisible && (
-          <MenuItem onClick={() => navigate({ pathname: ROUTES.randomQuote })}>
+          <MenuItem
+            onClick={() => navigate({ pathname: ROUTES.randomQuote() })}
+          >
             <NavLink
               className={getMobileNavLinkClasses}
-              to={ROUTES.randomQuote}
+              to={ROUTES.randomQuote()}
             >
               Wylosuj
             </NavLink>
