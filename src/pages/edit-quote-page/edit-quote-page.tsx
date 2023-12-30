@@ -34,7 +34,7 @@ export const EditQuotePage = () => {
 
       <Button
         className={styles.backButton}
-        onClick={() => navigate({ pathname: ROUTES.home() })}
+        onClick={() => navigate(ROUTES.home.back())}
       >
         Wróć
       </Button>

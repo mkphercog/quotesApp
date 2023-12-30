@@ -53,7 +53,7 @@ export const App = () => {
           })}
         >
           <Routes>
-            <Route path={ROUTES.home()} element={<Topbar />}>
+            <Route path={ROUTES.home.root()} element={<Topbar />}>
               <Route index element={<QuotesListPage />} />
               <Route path={ROUTES.manage.root()} element={<ManageDataPage />}>
                 <Route

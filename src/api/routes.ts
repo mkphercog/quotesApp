@@ -1,5 +1,8 @@
 export const ROUTES = {
-  home: () => "/",
+  home: {
+    root: () => "/",
+    back: () => -1,
+  },
   manage: {
     root: () => "/manage",
     addQuote: () => "/manage/addQuote",

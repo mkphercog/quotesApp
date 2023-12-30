@@ -21,7 +21,7 @@ export const DesktopNav: FC<DesktopNavProps> = ({
 
   return (
     <div className={styles.desktopMenu}>
-      <NavLink className={getDesktopNavLinkClasses} to={ROUTES.home()}>
+      <NavLink className={getDesktopNavLinkClasses} to={ROUTES.home.root()}>
         Lista
       </NavLink>
 

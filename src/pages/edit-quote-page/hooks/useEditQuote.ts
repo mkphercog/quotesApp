@@ -49,10 +49,7 @@ export const useEditQuote = () => {
         comment: newQueryData.comment?.trim(),
       },
       {
-        onSuccess: () =>
-          navigate({
-            pathname: ROUTES.home(),
-          }),
+        onSuccess: () => navigate(ROUTES.home.back()),
       }
     );
     clearForm();

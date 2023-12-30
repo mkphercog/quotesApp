@@ -27,8 +27,8 @@ export const MobileNav: FC<MobileNavProps> = ({
       <ColorModeToggler />
 
       <Menu>
-        <MenuItem onClick={() => navigate({ pathname: ROUTES.home() })}>
-          <NavLink className={getMobileNavLinkClasses} to={ROUTES.home()}>
+        <MenuItem onClick={() => navigate({ pathname: ROUTES.home.root() })}>
+          <NavLink className={getMobileNavLinkClasses} to={ROUTES.home.root()}>
             Lista
           </NavLink>
         </MenuItem>
