@@ -1,13 +1,13 @@
 import { useState, useEffect, FC, useMemo } from "react";
 import { Button, Flex, Heading, Loader, Text } from "@aws-amplify/ui-react";
-import { useGetQuotesListQuery } from "api/quotes";
 import { EagerQuoteDataModel } from "models";
 
 import { useReading } from "lib/hooks";
 import { getRandomNumberFunction } from "lib/utils";
+import { QuoteListItem } from "lib/components/quote";
+import { useGetQuotesListQuery } from "api/quotes";
 
 import styles from "./random-quote-page.module.scss";
-import { QuoteListItem } from "lib/components";
 
 export const MINIMUM_QUOTES_LIST_LENGTH = 3;
 

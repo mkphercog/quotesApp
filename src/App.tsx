@@ -1,25 +1,26 @@
-import { useQueryClient } from "@tanstack/react-query";
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import { defaultDarkModeOverride, ThemeProvider } from "@aws-amplify/ui-react";
-import { ROUTES } from "api/routes";
-import { UpdateQuoteForm } from "components";
-import { Topbar } from "lib/components";
-import { useColorMode } from "lib/providers/color-mode";
+import awsconfig from "./aws-exports";
 import { Amplify } from "aws-amplify";
+import { useQueryClient } from "@tanstack/react-query";
+import { useColorMode } from "lib/providers/color-mode";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { Authenticator, withAuthenticator } from "@aws-amplify/ui-react";
+import { defaultDarkModeOverride, ThemeProvider } from "@aws-amplify/ui-react";
+
 import {
   AddQuotePage,
+  EditQuotePage,
   ManageDataPage,
   QuotesListPage,
   RandomQuotePage,
   SourceManagePage,
   TagManagePage,
 } from "pages";
-import awsconfig from "./aws-exports";
+import { ROUTES } from "api/routes";
+import { Topbar } from "lib/components";
 
 import cn from "classnames";
-
+//order of this styles is important
 import "@aws-amplify/ui-react/styles.css";
 import styles from "./App.module.scss";
 
@@ -71,7 +72,7 @@ export const App = () => {
               </Route>
               <Route
                 path={ROUTES.manage.editQuoteRoot()}
-                element={<UpdateQuoteForm />}
+                element={<EditQuotePage />}
               />
               <Route
                 path={ROUTES.randomQuote()}

@@ -3,7 +3,7 @@ import * as yup from "yup";
 export const QUOTE_CONTENT_MAX_LENGTH = 512;
 export const QUOTE_COMMENT_MAX_LENGTH = 512;
 
-export const validationSchema = yup.object({
+export const quoteValidationSchema = yup.object({
   content: yup
     .string()
     .max(
@@ -21,10 +21,10 @@ export const validationSchema = yup.object({
   quoteDataModelTagId: yup.string(),
 });
 
-export type QuoteValidationSchemaType = typeof validationSchema;
+export type QuoteValidationSchemaType = typeof quoteValidationSchema;
 export type QuoteValidationFormType = yup.InferType<QuoteValidationSchemaType>;
 
-export const defaultValues: QuoteValidationFormType = {
+export const quoteEmptyDefaultValues: QuoteValidationFormType = {
   content: "",
   comment: "",
   quoteDataModelSourceId: "",

@@ -1,8 +1,9 @@
 import { Loader, Text } from "@aws-amplify/ui-react";
-import { useGetQuotesListQuery } from "api/quotes";
-import { QuoteListItem } from "lib/components";
-import cn from "classnames";
 
+import { useGetQuotesListQuery } from "api/quotes";
+import { QuoteListItem } from "lib/components/quote";
+
+import cn from "classnames";
 import styles from "./quotes-list-page.module.scss";
 
 export const QuotesListPage = () => {

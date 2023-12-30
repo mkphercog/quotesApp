@@ -2,10 +2,10 @@ import { useAddQuoteMutation } from "api/quotes";
 import { useGetSourceListQuery } from "api/sources";
 import { useGetTagListQuery } from "api/tags";
 import {
-  defaultValues,
+  quoteEmptyDefaultValues as defaultValues,
   QuoteValidationFormType,
-  validationSchema,
-} from "lib/components";
+  quoteValidationSchema as validationSchema,
+} from "lib/components/quote";
 import { useBaseForm } from "lib/components/form";
 
 export const useAddQuote = () => {

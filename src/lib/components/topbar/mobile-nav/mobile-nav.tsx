@@ -1,11 +1,12 @@
-import { Menu, MenuItem } from "@aws-amplify/ui-react";
-import { ROUTES } from "api/routes";
-import { ColorModeToggler, SignOutButton } from "lib/components";
 import { FC } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { NavLinkClassNameProps } from "../topbar.types";
-import cn from "classnames";
+import { Menu, MenuItem } from "@aws-amplify/ui-react";
 
+import { ROUTES } from "api/routes";
+import { NavLinkClassNameProps } from "../topbar.types";
+import { ColorModeToggler, SignOutButton } from "lib/components";
+
+import cn from "classnames";
 import styles from "./mobile-nav.module.scss";
 
 interface MobileNavProps {

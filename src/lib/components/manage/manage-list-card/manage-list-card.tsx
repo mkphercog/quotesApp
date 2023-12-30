@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren } from "react";
-import cn from "classnames";
 
+import cn from "classnames";
 import styles from "./manage-list-card.module.scss";
 
 type ManageListCardProps = PropsWithChildren<{

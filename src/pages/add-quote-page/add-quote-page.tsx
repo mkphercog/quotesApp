@@ -1,4 +1,4 @@
-import { QuoteFormCard } from "lib/components/quote-form-card/quote-form-card";
+import { QuoteFormCard } from "lib/components/quote";
 
 import styles from "./add-quote-page.module.scss";
 import { useAddQuote } from "./hooks";

@@ -1,7 +1,8 @@
 import { NavLink, Outlet } from "react-router-dom";
-import { ROUTES } from "../../api/routes";
-import cn from "classnames";
 
+import { ROUTES } from "../../api/routes";
+
+import cn from "classnames";
 import styles from "./manage-data-page.module.scss";
 
 const getMobileNavLinkClasses = ({ isActive }: { isActive: boolean }) => {

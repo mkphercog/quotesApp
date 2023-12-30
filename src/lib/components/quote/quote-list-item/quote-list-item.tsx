@@ -1,3 +1,4 @@
+import { FC } from "react";
 import {
   Badge,
   Button,
@@ -5,14 +6,14 @@ import {
   ExpanderItem,
   Text,
 } from "@aws-amplify/ui-react";
-import { useDeleteQuoteMutation } from "api/quotes";
-import { ROUTES } from "api/routes";
-import cn from "classnames";
-import { copyTextToClipboard } from "lib/utils";
-import { FC } from "react";
 import { useNavigate } from "react-router-dom";
-import { EagerQuoteDataModel } from "../../../models";
+import { EagerQuoteDataModel } from "../../../../models";
 
+import { ROUTES } from "api/routes";
+import { copyTextToClipboard } from "lib/utils";
+import { useDeleteQuoteMutation } from "api/quotes";
+
+import cn from "classnames";
 import styles from "./quote-list-item.module.scss";
 
 interface QuoteListItemProps {
@@ -35,9 +36,11 @@ export const QuoteListItem: FC<QuoteListItemProps> = ({ quote }) => {
       <ExpanderItem
         title={
           <div className={styles.quoteHeaderWrapper}>
-            <Text className={styles.quoteHeaderText}>
-              <pre className={styles.pre}>{`"${quote.content}"`}</pre>
-            </Text>
+            <pre className={styles.pre}>
+              <Text className={styles.quoteHeaderText}>
+                {`"${quote.content}"`}
+              </Text>
+            </pre>
             {quote.tag && (
               <Badge className={styles.quoteHeaderBadge}>
                 {quote.tag.name}
@@ -62,13 +65,14 @@ export const QuoteListItem: FC<QuoteListItemProps> = ({ quote }) => {
           )}
 
           {!!quote.comment && (
-            <Text
-              className={cn(styles.quoteDetailsText, {
-                [styles.comment]: !!quote.source?.title,
+            <pre
+              className={cn(styles.pre, {
+                [styles.commentSpace]: !!quote.source?.title,
               })}
             >
-              Komentarz: <pre className={styles.pre}>{quote.comment}</pre>
-            </Text>
+              Komentarz:
+              <Text className={styles.quoteDetailsText}>{quote.comment}</Text>
+            </pre>
           )}
         </div>
 

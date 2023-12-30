@@ -1,4 +1,4 @@
-@use "../../../assets/styles/breakpoints.scss" as *;
+@use "../../../../assets/styles/breakpoints.scss" as *;
 
 .quoteHeaderWrapper {
   width: 100%;
@@ -60,7 +60,7 @@
   }
 }
 
-.comment {
+.commentSpace {
   margin-top: 10px;
 }
 
