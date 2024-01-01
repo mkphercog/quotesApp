@@ -1,10 +1,10 @@
 import { useState, useEffect, FC, useMemo } from "react";
-import { Button, Flex, Heading, Loader, Text } from "@aws-amplify/ui-react";
+import { Button, Heading, Loader, Text } from "@aws-amplify/ui-react";
 import { EagerQuoteDataModel } from "models";
 
-import { useReading } from "lib/hooks";
-import { getRandomNumberFunction } from "lib/utils";
 import { QuoteListItem } from "lib/components/quote";
+import { getRandomNumberFunction } from "lib/utils";
+import { useReading } from "lib/hooks";
 import { useGetQuotesListQuery } from "api/quotes";
 
 import styles from "./random-quote-page.module.scss";
@@ -33,21 +33,21 @@ export const RandomQuotePage = () => {
   }, [shouldGetRandomAgain, quoteList]);
 
   return (
-    <Flex direction="column" alignItems="center">
-      <Heading fontSize="20px" padding="10px" marginTop="30px">
-        WYLOSOWANY CYTAT
-      </Heading>
-      <Flex className={styles.contentWrapper}>
+    <div className={styles.wrapper}>
+      <Heading className={styles.heading}>WYLOSOWANY CYTAT</Heading>
+
+      <div className={styles.contentWrapper}>
         <Content
           isLoading={isLoading}
           hasQuoteListAppropriateLength={hasQuoteListAppropriateLength}
           quoteData={randomQuote}
         />
-      </Flex>
+      </div>
 
       {hasQuoteListAppropriateLength && (
-        <Flex>
+        <div>
           <Button
+            className={styles.readButton}
             onClick={() => {
               if (isReading) {
                 stopReading();
@@ -66,9 +66,9 @@ export const RandomQuotePage = () => {
           >
             Wylosuj ponownie
           </Button>
-        </Flex>
+        </div>
       )}
-    </Flex>
+    </div>
   );
 };
 
@@ -84,7 +84,7 @@ const Content: FC<ContentProps> = ({
   quoteData,
 }) => {
   if (isLoading) {
-    return <Loader height="100px" margin="0 auto" />;
+    return <Loader className={styles.loader} />;
   }
 
   if (!hasQuoteListAppropriateLength) {

@@ -1,9 +1,33 @@
 @use "../../assets/styles/breakpoints.scss" as *;
 
+.wrapper {
+  display: grid;
+  grid-template-rows: repeat(3, auto);
+  row-gap: 20px;
+  justify-items: center;
+}
+
+.heading {
+  font-size: 20px !important;
+  padding: 10px !important;
+  margin-top: 30px !important;
+}
+
 .contentWrapper {
+  display: flex !important;
+  align-items: center !important;
   width: 95% !important;
 
   @include for-tablet-lg-up {
     width: 60% !important;
   }
+}
+
+.readButton {
+  margin-right: 10px !important;
+}
+
+.loader {
+  height: 100px !important;
+  margin: 0 auto !important;
 }
