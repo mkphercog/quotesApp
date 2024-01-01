@@ -1,0 +1,15 @@
+.deleteButton {
+  background-color: transparent !important;
+  color: var(--amplify-colors-red-90) !important;
+  border-color: var(--amplify-colors-red-90) !important;
+
+  &:hover {
+    color: var(--amplify-colors-red-80) !important;
+    border-color: var(--amplify-colors-red-80) !important;
+  }
+
+  &:disabled {
+    color: var(--amplify-internal-button-disabled-color) !important;
+    border-color: var(--amplify-colors-red-40) !important;
+  }
+}

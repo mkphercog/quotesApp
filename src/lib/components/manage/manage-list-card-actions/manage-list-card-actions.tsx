@@ -1,5 +1,6 @@
 import { Button } from "@aws-amplify/ui-react";
-import { ArrowLeftCircleFillIcon, DeleteBinFillIcon } from "lib/icons";
+import { DeleteButton } from "lib/components/delete-button/delete-button";
+import { ArrowLeftCircleFillIcon } from "lib/icons";
 import { FC } from "react";
 import styles from "./manage-list-card-actions.module.scss";
 
@@ -35,13 +36,10 @@ export const ManageListCardActions: FC<ManageListCardActionsProps> = ({
         Uaktualnij
       </Button>
 
-      <Button
-        className={styles.deleteButton}
+      <DeleteButton
         onClick={deleteButton.onClick}
         disabled={deleteButton.isDisabled}
-      >
-        <DeleteBinFillIcon />
-      </Button>
+      />
     </div>
   );
 };

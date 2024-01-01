@@ -2,9 +2,9 @@ import { useState, useEffect, FC, useMemo } from "react";
 import { Button, Heading, Loader, Text } from "@aws-amplify/ui-react";
 import { EagerQuoteDataModel } from "models";
 
+import { useReadingMode } from "lib/providers/reading-mode";
 import { QuoteListItem } from "lib/components/quote";
 import { getRandomNumberFunction } from "lib/utils";
-import { useReading } from "lib/hooks";
 import { useGetQuotesListQuery } from "api/quotes";
 
 import styles from "./random-quote-page.module.scss";
@@ -12,7 +12,8 @@ import styles from "./random-quote-page.module.scss";
 export const MINIMUM_QUOTES_LIST_LENGTH = 3;
 
 export const RandomQuotePage = () => {
-  const { startReading, stopReading, isReading } = useReading();
+  const { type } = useReadingMode();
+  const isReading = type === "READING";
   const [randomQuote, setRandomQuote] = useState<EagerQuoteDataModel | null>();
   const [shouldGetRandomAgain, setShouldGetRandomAgain] = useState(false);
   const { quoteList, isLoading } = useGetQuotesListQuery();
@@ -45,28 +46,14 @@ export const RandomQuotePage = () => {
       </div>
 
       {hasQuoteListAppropriateLength && (
-        <div>
-          <Button
-            className={styles.readButton}
-            onClick={() => {
-              if (isReading) {
-                stopReading();
-              } else {
-                randomQuote && startReading(randomQuote.content);
-              }
-            }}
-          >
-            {isReading ? "Stop" : "Przeczytaj"}
-          </Button>
-          <Button
-            onClick={() => {
-              setShouldGetRandomAgain((prevState) => !prevState);
-            }}
-            disabled={isReading}
-          >
-            Wylosuj ponownie
-          </Button>
-        </div>
+        <Button
+          onClick={() => {
+            setShouldGetRandomAgain((prevState) => !prevState);
+          }}
+          disabled={isReading}
+        >
+          Wylosuj ponownie
+        </Button>
       )}
     </div>
   );

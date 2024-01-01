@@ -9,9 +9,16 @@ import {
 import { useNavigate } from "react-router-dom";
 import { EagerQuoteDataModel } from "../../../../models";
 
-import { ROUTES } from "api/routes";
-import { copyTextToClipboard } from "lib/utils";
+import { DeleteButton } from "lib/components/delete-button/delete-button";
+import { useReadingMode } from "lib/providers/reading-mode";
 import { useDeleteQuoteMutation } from "api/quotes";
+import { copyTextToClipboard } from "lib/utils";
+import {
+  FileCopyFillIcon,
+  MicrophoneFillIcon,
+  MicrophoneOffFillIcon,
+} from "lib/icons";
+import { ROUTES } from "api/routes";
 
 import cn from "classnames";
 import styles from "./quote-list-item.module.scss";
@@ -22,6 +29,8 @@ interface QuoteListItemProps {
 
 export const QuoteListItem: FC<QuoteListItemProps> = ({ quote }) => {
   const { deleteQuoteDataMutation } = useDeleteQuoteMutation();
+  const { setIsReading, stopReading, type } = useReadingMode();
+  const isReading = type === "READING";
   const navigate = useNavigate();
 
   const handleNavigateToEditPage = (id: string) => {
@@ -78,23 +87,33 @@ export const QuoteListItem: FC<QuoteListItemProps> = ({ quote }) => {
 
         <div className={styles.buttonsWrapper}>
           <Button
+            onClick={() => {
+              if (isReading) {
+                stopReading();
+              } else {
+                quote && setIsReading(quote.content);
+              }
+            }}
+          >
+            {isReading ? <MicrophoneOffFillIcon /> : <MicrophoneFillIcon />}
+          </Button>
+          <Button
             className={styles.button}
             onClick={() => copyTextToClipboard(quote.content)}
           >
-            Kopiuj
+            <FileCopyFillIcon />
           </Button>
           <Button
             className={styles.button}
             onClick={() => handleNavigateToEditPage(quote.id)}
+            disabled={isReading}
           >
             Edytuj
           </Button>
-          <Button
-            className={styles.button}
+          <DeleteButton
             onClick={() => deleteQuoteDataMutation({ id: quote.id })}
-          >
-            Usuń
-          </Button>
+            disabled={isReading}
+          />
         </div>
       </ExpanderItem>
     </Expander>
