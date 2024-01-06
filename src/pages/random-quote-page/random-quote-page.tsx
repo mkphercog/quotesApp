@@ -8,6 +8,7 @@ import { getRandomNumberFunction } from "lib/utils";
 import { useGetQuotesListQuery } from "api/quotes";
 
 import styles from "./random-quote-page.module.scss";
+import { SearchAndFilterPanel, useSearchAndFilterPanel } from "lib/components";
 
 export const MINIMUM_QUOTES_LIST_LENGTH = 3;
 
@@ -20,21 +21,41 @@ export const RandomQuotePage = () => {
   const hasQuoteListAppropriateLength =
     Number(quoteList?.length) >= MINIMUM_QUOTES_LIST_LENGTH;
 
+  const { formParams, filteredList } = useSearchAndFilterPanel({
+    list: quoteList.map((item) => ({
+      ...item,
+      textToSearch: item.content,
+    })),
+    isLoading: isLoading,
+  });
+  const list = filteredList ? filteredList : quoteList;
+
   const { getRandomNumber } = useMemo(
-    () => getRandomNumberFunction({ min: 0, max: quoteList?.length || 0 }),
-    [quoteList?.length]
+    () => getRandomNumberFunction({ min: 0, max: list?.length || 0 }),
+    [list?.length]
   );
 
   useEffect(() => {
-    if (quoteList?.length) {
+    if (list?.length) {
       const randomNumber = getRandomNumber();
-      setRandomQuote(quoteList[randomNumber]);
+      setRandomQuote(list[randomNumber]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [shouldGetRandomAgain, quoteList]);
+  }, [shouldGetRandomAgain, list]);
 
   return (
     <div className={styles.wrapper}>
+      <SearchAndFilterPanel
+        className={styles.filterPanel}
+        formParams={formParams}
+        shouldShowNoResults={false}
+        numberOfFoundItems={filteredList?.length}
+        totalAmount={quoteList.length}
+        searching={false}
+        filterBySource
+        filterByTag
+      />
+
       <Heading className={styles.heading}>WYLOSOWANY CYTAT</Heading>
 
       <div className={styles.contentWrapper}>

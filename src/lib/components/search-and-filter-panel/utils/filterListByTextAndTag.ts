@@ -15,8 +15,6 @@ export function filterListByTextAndTag<T extends BasicListItemType>({
       ? item.quoteDataModelSourceId === source
       : true;
 
-    console.log(isSourceIncluded, item.quoteDataModelSourceId, source);
-
     return isTextIncluded && isTagIdIncluded && isSourceIncluded;
   });
 }

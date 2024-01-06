@@ -18,6 +18,7 @@ import styles from "./search-and-filter-panel.module.scss";
 
 interface SearchAndFilterPanelProps {
   formParams: UseBaseFormReturnedParams<SearchByTextAndFilterValidationType>;
+  shouldShowNoResults?: boolean;
   numberOfFoundItems: number | undefined;
   totalAmount: number;
   filterByTag?: boolean;
@@ -28,6 +29,7 @@ interface SearchAndFilterPanelProps {
 
 export const SearchAndFilterPanel: FC<SearchAndFilterPanelProps> = ({
   formParams,
+  shouldShowNoResults = true,
   numberOfFoundItems,
   totalAmount,
   filterByTag,
@@ -95,7 +97,7 @@ export const SearchAndFilterPanel: FC<SearchAndFilterPanelProps> = ({
               ${totalAmount}`}</Text>
       </div>
 
-      {isNoFoundItems && (
+      {isNoFoundItems && shouldShowNoResults && (
         <div className={styles.noResultsInfo}>
           <Text>Brak wyników wyszukiwania.</Text>
         </div>
