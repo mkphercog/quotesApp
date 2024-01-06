@@ -1,17 +1,18 @@
-import { BaseForm, useBaseForm } from "lib/components/form";
+import { useEffect } from "react";
+
 import {
   ManageListCard,
   ManageListCardActions,
   ManageListWrapper,
 } from "lib/components/manage";
-
-import { defaultValues, validationSchema } from "../../validation";
-import { useEffect } from "react";
 import { useManageTag } from "../../hooks";
+import { BaseForm, useBaseForm } from "lib/components/form";
+import { defaultValues, validationSchema } from "../../validation";
+import { SearchAndFilterPanel, useSearchAndFilterPanel } from "lib/components";
+import { EditableTagContent } from "./editable-tag-content/editable-tag-content";
+import { NotEditableTagContent } from "./not-editable-tag-content/not-editable-tag-content";
 
 import styles from "./manage-tag-list-section.module.scss";
-import { NotEditableTagContent } from "./not-editable-tag-content/not-editable-tag-content";
-import { EditableTagContent } from "./editable-tag-content/editable-tag-content";
 
 export const ManageTagListSection = () => {
   const {
@@ -24,6 +25,16 @@ export const ManageTagListSection = () => {
     isManageTagLoading,
     handleCancel,
   } = useManageTag();
+
+  const { filteredList, formParams: searchFormParams } =
+    useSearchAndFilterPanel({
+      list: tagList.map((item) => ({
+        ...item,
+        textToSearch: item.name || "",
+      })),
+      isLoading: isTagListLoading,
+    });
+  const list = filteredList ? filteredList : tagList;
 
   const formParams = useBaseForm({
     defaultValues,
@@ -46,12 +57,17 @@ export const ManageTagListSection = () => {
       isEmptyList={!tagList.length}
       isLoading={isTagListLoading}
     >
+      <SearchAndFilterPanel
+        className={styles.searchPanel}
+        formParams={searchFormParams}
+        numberOfFoundItems={filteredList?.length}
+      />
       <BaseForm
         id={currentTagId || ""}
         formParams={formParams}
         onSubmit={handleUpdateTag}
       >
-        {tagList.map((tag) => {
+        {list.map((tag) => {
           const isCurrentItemEdited = tag.id === currentTagId;
 
           return (

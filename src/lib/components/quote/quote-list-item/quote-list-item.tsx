@@ -76,7 +76,7 @@ export const QuoteListItem: FC<QuoteListItemProps> = ({ quote }) => {
           {!!quote.comment && (
             <pre
               className={cn(styles.pre, {
-                [styles.commentSpace]: !!quote.source?.title,
+                [styles.commentSpace]: !!quote.source,
               })}
             >
               Komentarz:

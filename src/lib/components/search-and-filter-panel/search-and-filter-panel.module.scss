@@ -1,0 +1,38 @@
+@use "../../../assets/styles/breakpoints.scss" as *;
+
+.inputsWrapper {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.searchingInput {
+  flex-grow: 3 !important;
+  margin-right: 20px !important;
+  gap: 0 !important;
+
+  @include for-tablet-lg-up {
+    flex-grow: 0 !important;
+    width: 400px !important;
+  }
+}
+
+.filterByTagInput {
+  flex-grow: 2 !important;
+  gap: 0 !important;
+
+  @include for-tablet-lg-up {
+    flex-grow: 0 !important;
+    min-width: 250px !important;
+  }
+}
+
+.foundHint {
+  margin-top: 10px;
+}
+
+.noResultsInfo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 250px;
+}

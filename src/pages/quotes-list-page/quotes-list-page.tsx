@@ -1,13 +1,22 @@
 import { Loader, Text } from "@aws-amplify/ui-react";
 
-import { useGetQuotesListQuery } from "api/quotes";
+import { SearchAndFilterPanel, useSearchAndFilterPanel } from "lib/components";
 import { QuoteListItem } from "lib/components/quote";
+import { useGetQuotesListQuery } from "api/quotes";
 
 import cn from "classnames";
 import styles from "./quotes-list-page.module.scss";
 
 export const QuotesListPage = () => {
   const { quoteList, isLoading } = useGetQuotesListQuery();
+  const { filteredList, formParams } = useSearchAndFilterPanel({
+    list: quoteList.map((item) => ({
+      ...item,
+      textToSearch: item.content,
+    })),
+    isLoading,
+  });
+  const list = filteredList ? filteredList : quoteList;
 
   if (isLoading) {
     return (
@@ -29,7 +38,12 @@ export const QuotesListPage = () => {
 
   return (
     <section className={styles.listWrapper}>
-      {quoteList.map((quote) => (
+      <SearchAndFilterPanel
+        formParams={formParams}
+        numberOfFoundItems={filteredList?.length}
+        filterByTag
+      />
+      {list.map((quote) => (
         <QuoteListItem key={quote.id} quote={quote} />
       ))}
     </section>

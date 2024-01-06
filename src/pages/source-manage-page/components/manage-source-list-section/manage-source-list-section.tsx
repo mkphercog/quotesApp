@@ -1,14 +1,16 @@
-import { BaseForm, useBaseForm } from "lib/components/form";
+import { useEffect } from "react";
+
 import {
   ManageListCard,
   ManageListCardActions,
   ManageListWrapper,
 } from "lib/components/manage";
-import { defaultValues, validationSchema } from "../../validation";
-import { useEffect } from "react";
 import { useManageSource } from "../../hooks";
-import { NotEditableSourceContent } from "./not-editable-source-content/not-editable-source-content";
+import { BaseForm, useBaseForm } from "lib/components/form";
+import { defaultValues, validationSchema } from "../../validation";
+import { SearchAndFilterPanel, useSearchAndFilterPanel } from "lib/components";
 import { EditableSourceContent } from "./editable-source-content/editable-source-content";
+import { NotEditableSourceContent } from "./not-editable-source-content/not-editable-source-content";
 
 import styles from "./manage-source-list-section.module.scss";
 
@@ -23,6 +25,16 @@ export const ManageSourceListSection = () => {
     isManageSourceLoading,
     handleCancel,
   } = useManageSource();
+
+  const { filteredList, formParams: searchFormParams } =
+    useSearchAndFilterPanel({
+      list: sourceList.map((item) => ({
+        ...item,
+        textToSearch: `${item.author} ${item.title}`,
+      })),
+      isLoading: isSourceListLoading,
+    });
+  const list = filteredList ? filteredList : sourceList;
 
   const formParams = useBaseForm({
     defaultValues,
@@ -62,12 +74,18 @@ export const ManageSourceListSection = () => {
       isEmptyList={!sourceList.length}
       isLoading={isSourceListLoading}
     >
+      <SearchAndFilterPanel
+        className={styles.searchPanel}
+        formParams={searchFormParams}
+        numberOfFoundItems={filteredList?.length}
+      />
+
       <BaseForm
         id={currentSourceId || ""}
         formParams={formParams}
         onSubmit={handleUpdateSource}
       >
-        {sourceList.map((source) => {
+        {list.map((source) => {
           const isCurrentItemEdited = source.id === currentSourceId;
 
           return (

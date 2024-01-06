@@ -14,7 +14,11 @@ interface SourceDataResponseType {
 }
 
 export const useGetSourceListQuery = () => {
-  const { data: sourceList, isLoading } = useQuery({
+  const {
+    data: sourceList,
+    isLoading,
+    isFetching,
+  } = useQuery({
     queryKey: [QueryKeys.sourceList],
     queryFn: async () => {
       const response = (await API.graphql(
@@ -25,5 +29,8 @@ export const useGetSourceListQuery = () => {
     },
   });
 
-  return { sourceList: getSortedListByCreationDate(sourceList), isLoading };
+  return {
+    sourceList: getSortedListByCreationDate(sourceList),
+    isLoading: isLoading || isFetching,
+  };
 };

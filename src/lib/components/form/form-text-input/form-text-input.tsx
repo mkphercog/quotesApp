@@ -15,6 +15,7 @@ type FromTextInputProps = {
   disabled?: boolean;
   value?: string | number | readonly string[] | undefined;
   isLoading?: boolean;
+  placeholder?: string;
 };
 
 export const FormTextInput: FC<FromTextInputProps> = ({
@@ -28,6 +29,7 @@ export const FormTextInput: FC<FromTextInputProps> = ({
   disabled,
   value,
   isLoading = false,
+  placeholder,
 }) => {
   const { field, fieldState } = useController({ name });
 
@@ -39,6 +41,7 @@ export const FormTextInput: FC<FromTextInputProps> = ({
           <Text>
             {labelText} {isRequired && " *"} {isLoading && <Loader />}
           </Text>
+
           {showCounter && maxLength && (
             <Text fontSize="x-small">{`${
               field?.value?.length ?? 0
@@ -56,6 +59,7 @@ export const FormTextInput: FC<FromTextInputProps> = ({
       maxLength={maxLength ? maxLength + 10 : undefined}
       disabled={disabled}
       value={value || field.value}
+      placeholder={placeholder}
     />
   );
 };
