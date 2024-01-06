@@ -6,3 +6,5 @@ export * from "./microphone-fill";
 export * from "./microphone-off-fill";
 export * from "./moon-fill-icon";
 export * from "./sun-fill-icon";
+export * from "./volume-mute-fill";
+export * from "./volume-up-fill";

@@ -15,8 +15,8 @@ import { useDeleteQuoteMutation } from "api/quotes";
 import { copyTextToClipboard } from "lib/utils";
 import {
   FileCopyFillIcon,
-  MicrophoneFillIcon,
-  MicrophoneOffFillIcon,
+  VolumeMuteFillIcon,
+  VolumeUpFillIcon,
 } from "lib/icons";
 import { ROUTES } from "api/routes";
 
@@ -95,7 +95,7 @@ export const QuoteListItem: FC<QuoteListItemProps> = ({ quote }) => {
               }
             }}
           >
-            {isReading ? <MicrophoneOffFillIcon /> : <MicrophoneFillIcon />}
+            {isReading ? <VolumeMuteFillIcon /> : <VolumeUpFillIcon />}
           </Button>
           <Button
             className={styles.button}
