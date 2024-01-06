@@ -78,6 +78,7 @@ export const ManageSourceListSection = () => {
         className={styles.searchPanel}
         formParams={searchFormParams}
         numberOfFoundItems={filteredList?.length}
+        totalAmount={sourceList.length}
       />
 
       <BaseForm

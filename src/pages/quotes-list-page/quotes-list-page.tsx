@@ -41,6 +41,7 @@ export const QuotesListPage = () => {
       <SearchAndFilterPanel
         formParams={formParams}
         numberOfFoundItems={filteredList?.length}
+        totalAmount={quoteList.length}
         filterByTag
       />
       {list.map((quote) => (

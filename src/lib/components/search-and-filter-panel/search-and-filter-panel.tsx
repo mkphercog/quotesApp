@@ -15,6 +15,7 @@ import styles from "./search-and-filter-panel.module.scss";
 interface SearchAndFilterPanelProps {
   formParams: UseBaseFormReturnedParams<SearchByTextAndFilterValidationType>;
   numberOfFoundItems: number | undefined;
+  totalAmount: number;
   filterByTag?: boolean;
   searching?: boolean;
   className?: string;
@@ -23,6 +24,7 @@ interface SearchAndFilterPanelProps {
 export const SearchAndFilterPanel: FC<SearchAndFilterPanelProps> = ({
   formParams,
   numberOfFoundItems,
+  totalAmount,
   filterByTag,
   searching = true,
   className,
@@ -55,12 +57,12 @@ export const SearchAndFilterPanel: FC<SearchAndFilterPanelProps> = ({
         )}
       </div>
 
-      {!isNoFoundItems && (
-        <div className={styles.foundHint}>
-          <Text>{`Znaleziono: 
+      <div className={styles.hintsWrapper}>
+        <Text>{`Znaleziono: 
               ${numberOfFoundItems ?? "-"}`}</Text>
-        </div>
-      )}
+        <Text>{`Dostępnych: 
+              ${totalAmount}`}</Text>
+      </div>
 
       {isNoFoundItems && (
         <div className={styles.noResultsInfo}>

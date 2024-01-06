@@ -2,13 +2,21 @@
 
 .inputsWrapper {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
+
+  @include for-tablet-up {
+    flex-wrap: nowrap;
+  }
 }
 
 .searchingInput {
-  flex-grow: 3 !important;
-  margin-right: 20px !important;
+  width: 100% !important;
   gap: 0 !important;
+
+  @include for-tablet-up {
+    margin-right: 20px !important;
+    flex-grow: 3 !important;
+  }
 
   @include for-tablet-lg-up {
     flex-grow: 0 !important;
@@ -17,17 +25,29 @@
 }
 
 .filterByTagInput {
-  flex-grow: 2 !important;
+  margin-top: 10px !important;
+  width: 100% !important;
   gap: 0 !important;
+
+  @include for-tablet-up {
+    flex-grow: 2 !important;
+    width: unset !important;
+    min-width: 250px !important;
+    margin-top: 0 !important;
+  }
 
   @include for-tablet-lg-up {
     flex-grow: 0 !important;
-    min-width: 250px !important;
   }
 }
 
-.foundHint {
+.hintsWrapper {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  justify-content: left;
+  gap: 10px;
   margin-top: 10px;
+  font-size: 12px !important;
 }
 
 .noResultsInfo {

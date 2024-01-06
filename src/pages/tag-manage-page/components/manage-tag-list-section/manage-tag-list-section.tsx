@@ -61,6 +61,7 @@ export const ManageTagListSection = () => {
         className={styles.searchPanel}
         formParams={searchFormParams}
         numberOfFoundItems={filteredList?.length}
+        totalAmount={tagList.length}
       />
       <BaseForm
         id={currentTagId || ""}
