@@ -1,7 +1,11 @@
 import { FC } from "react";
-import { Text } from "@aws-amplify/ui-react";
+import { Button, Text } from "@aws-amplify/ui-react";
 
-import { SearchByTextAndFilterValidationType } from "./validation";
+import {
+  defaultValues,
+  SearchByTextAndFilterValidationType,
+} from "./validation";
+import { useGetSourceListQuery } from "api/sources";
 import { useGetTagListQuery } from "api/tags";
 import {
   BaseForm,
@@ -17,6 +21,7 @@ interface SearchAndFilterPanelProps {
   numberOfFoundItems: number | undefined;
   totalAmount: number;
   filterByTag?: boolean;
+  filterBySource?: boolean;
   searching?: boolean;
   className?: string;
 }
@@ -26,15 +31,18 @@ export const SearchAndFilterPanel: FC<SearchAndFilterPanelProps> = ({
   numberOfFoundItems,
   totalAmount,
   filterByTag,
+  filterBySource,
   searching = true,
   className,
 }) => {
+  const { sourceList } = useGetSourceListQuery();
   const { tagList } = useGetTagListQuery();
+
   const isNoFoundItems = numberOfFoundItems === 0;
 
   return (
     <BaseForm className={className} formParams={formParams} onSubmit={() => {}}>
-      <div className={styles.inputsWrapper}>
+      <div className={styles.controlsWrapper}>
         {searching && (
           <FormTextInput
             className={styles.searchingInput}
@@ -47,7 +55,7 @@ export const SearchAndFilterPanel: FC<SearchAndFilterPanelProps> = ({
         {filterByTag && (
           <FormSelectField
             className={styles.filterByTagInput}
-            labelText=""
+            labelText="Kategoria"
             name="filterByTag"
             options={tagList.map((tag) => ({
               id: tag.id,
@@ -55,6 +63,29 @@ export const SearchAndFilterPanel: FC<SearchAndFilterPanelProps> = ({
             }))}
           />
         )}
+
+        {filterBySource && (
+          <FormSelectField
+            className={styles.filterBySourceInput}
+            labelText="Źródło"
+            name="filterBySource"
+            options={sourceList.map((source) => {
+              const separator = !source.title ? "" : !source.author ? "" : "-";
+
+              return {
+                id: source.id,
+                name: `${source.title} ${separator} ${source.author}`,
+              };
+            })}
+          />
+        )}
+
+        <Button
+          onClick={() => formParams.reset(defaultValues)}
+          disabled={!formParams.formState.isDirty}
+        >
+          Wyczyść
+        </Button>
       </div>
 
       <div className={styles.hintsWrapper}>

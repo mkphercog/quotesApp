@@ -3,6 +3,7 @@ import { BasicListItemType, FilterByTextAndTagNameType } from "../types";
 export function filterListByTextAndTag<T extends BasicListItemType>({
   list,
   text,
+  source,
   tag,
 }: FilterByTextAndTagNameType<T>): T[] {
   return list.filter((item) => {
@@ -10,7 +11,12 @@ export function filterListByTextAndTag<T extends BasicListItemType>({
       ? item.textToSearch.toLowerCase().includes(text.toLowerCase())
       : true;
     const isTagIdIncluded = tag ? item.quoteDataModelTagId === tag : true;
+    const isSourceIncluded = source
+      ? item.quoteDataModelSourceId === source
+      : true;
 
-    return isTextIncluded && isTagIdIncluded;
+    console.log(isSourceIncluded, item.quoteDataModelSourceId, source);
+
+    return isTextIncluded && isTagIdIncluded && isSourceIncluded;
   });
 }

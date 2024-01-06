@@ -1,43 +1,38 @@
 @use "../../../assets/styles/breakpoints.scss" as *;
 
-.inputsWrapper {
+.controlsWrapper {
   display: flex;
   flex-wrap: wrap;
-
-  @include for-tablet-up {
-    flex-wrap: nowrap;
-  }
+  align-items: end;
+  gap: 10px 20px;
 }
 
 .searchingInput {
   width: 100% !important;
-  gap: 0 !important;
-
-  @include for-tablet-up {
-    margin-right: 20px !important;
-    flex-grow: 3 !important;
-  }
 
   @include for-tablet-lg-up {
-    flex-grow: 0 !important;
-    width: 400px !important;
+    min-width: 300px !important;
+    max-width: 400px !important;
   }
 }
 
 .filterByTagInput {
-  margin-top: 10px !important;
   width: 100% !important;
-  gap: 0 !important;
 
   @include for-tablet-up {
-    flex-grow: 2 !important;
     width: unset !important;
     min-width: 250px !important;
-    margin-top: 0 !important;
+    max-width: 350px !important;
   }
+}
 
-  @include for-tablet-lg-up {
-    flex-grow: 0 !important;
+.filterBySourceInput {
+  width: 100% !important;
+
+  @include for-tablet-up {
+    width: unset !important;
+    min-width: 250px !important;
+    max-width: 350px !important;
   }
 }
 

@@ -42,6 +42,7 @@ export const QuotesListPage = () => {
         formParams={formParams}
         numberOfFoundItems={filteredList?.length}
         totalAmount={quoteList.length}
+        filterBySource
         filterByTag
       />
       {list.map((quote) => (

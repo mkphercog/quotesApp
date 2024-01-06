@@ -2,6 +2,7 @@ import * as yup from "yup";
 
 export const validationSchema = yup.object({
   searchByText: yup.string(),
+  filterBySource: yup.string(),
   filterByTag: yup.string(),
 });
 
@@ -12,5 +13,6 @@ export type SearchByTextAndFilterValidationFormType =
 
 export const defaultValues: SearchByTextAndFilterValidationFormType = {
   searchByText: "",
+  filterBySource: "",
   filterByTag: "",
 };
