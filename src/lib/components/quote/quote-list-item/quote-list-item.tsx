@@ -19,6 +19,7 @@ import {
   VolumeUpFillIcon,
 } from "lib/icons";
 import { ROUTES } from "api/routes";
+import { useSession } from "lib/providers/session/session.hooks";
 
 import cn from "classnames";
 import styles from "./quote-list-item.module.scss";
@@ -32,6 +33,12 @@ export const QuoteListItem: FC<QuoteListItemProps> = ({ quote }) => {
   const { setIsReading, stopReading, type } = useReadingMode();
   const isReading = type === "READING";
   const navigate = useNavigate();
+  const {
+    decreaseGuestActions,
+    isGuestLogged,
+    canGuestDoAction,
+    isRegularUserLogged,
+  } = useSession();
 
   const handleNavigateToEditPage = (id: string) => {
     navigate({
@@ -106,13 +113,19 @@ export const QuoteListItem: FC<QuoteListItemProps> = ({ quote }) => {
           <Button
             className={styles.button}
             onClick={() => handleNavigateToEditPage(quote.id)}
-            disabled={isReading}
+            disabled={isReading || (isGuestLogged && !canGuestDoAction)}
           >
             Edytuj
           </Button>
           <DeleteButton
-            onClick={() => deleteQuoteDataMutation({ id: quote.id })}
-            disabled={isReading}
+            onClick={() => {
+              decreaseGuestActions();
+
+              if (isRegularUserLogged || (isGuestLogged && canGuestDoAction)) {
+                deleteQuoteDataMutation({ id: quote.id });
+              }
+            }}
+            disabled={isReading || (isGuestLogged && !canGuestDoAction)}
           />
         </div>
       </ExpanderItem>

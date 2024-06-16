@@ -4,6 +4,7 @@ import { getSortedListByCreationDate } from "lib/utils";
 import { listTagData } from "../../graphql/queries";
 import { EagerTagData } from "../../models";
 import { QueryKeys } from "../query-keys";
+import { useAuthenticator } from "@aws-amplify/ui-react";
 
 interface TagDataResponseType {
   data: {
@@ -14,12 +15,13 @@ interface TagDataResponseType {
 }
 
 export const useGetTagListQuery = () => {
+  const { user } = useAuthenticator();
   const {
     data: tagList,
     isLoading,
     isFetching,
   } = useQuery({
-    queryKey: [QueryKeys.tagList],
+    queryKey: [QueryKeys.tagList, user],
     queryFn: async () => {
       const response = (await API.graphql(
         graphqlOperation(listTagData)

@@ -26,7 +26,7 @@ export const useDeleteTagMutation = () => {
       await Promise.all([tagListPromise, quoteListPromise]);
     },
     onError: (error) => {
-      console.log("Delete tag error: ", error);
+      console.error("Delete tag error: ", error);
     },
   });
 

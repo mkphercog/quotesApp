@@ -28,7 +28,7 @@ export const useAddSourceMutation = () => {
       await Promise.all([sourceListPromise, quoteListPromise]);
     },
     onError: (error) => {
-      console.log("Add source error: ", error);
+      console.error("Add source error: ", error);
     },
   });
 

@@ -35,7 +35,7 @@ export const useUpdateQuoteMutation = () => {
       await Promise.all([quoteDetailsListPromise, quoteListPromise]);
     },
     onError: (error) => {
-      console.log("Update quote error: ", error);
+      console.error("Update quote error: ", error);
     },
   });
 

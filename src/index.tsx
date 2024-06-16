@@ -1,6 +1,8 @@
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { HashRouter } from "react-router-dom";
+import awsconfig from "./aws-exports";
+import { Amplify } from "aws-amplify";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { ReadingModeProvider } from "lib/providers/reading-mode";
@@ -9,6 +11,8 @@ import { ONE_HOUR_IN_MILLISECONDS } from "lib/constants";
 import App from "./App";
 
 import "assets/styles/index.scss";
+
+Amplify.configure(awsconfig);
 
 const queryClient = new QueryClient({
   defaultOptions: {

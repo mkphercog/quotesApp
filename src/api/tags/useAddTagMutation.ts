@@ -21,7 +21,7 @@ export const useAddTagMutation = () => {
       await queryClient.invalidateQueries([QueryKeys.tagList]);
     },
     onError: (error) => {
-      console.log("Add tag error: ", error);
+      console.error("Add tag error: ", error);
     },
   });
 

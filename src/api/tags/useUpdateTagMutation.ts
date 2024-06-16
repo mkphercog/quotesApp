@@ -26,7 +26,7 @@ export const useUpdateTagMutation = () => {
       await Promise.all([tagListPromise, quoteListPromise]);
     },
     onError: (error) => {
-      console.log("Update tag error: ", error);
+      console.error("Update tag error: ", error);
     },
   });
 

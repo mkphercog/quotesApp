@@ -28,7 +28,7 @@ export const useDeleteSourceMutation = () => {
       await Promise.all([sourceListPromise, quoteListPromise]);
     },
     onError: (error) => {
-      console.log("Delete source error: ", error);
+      console.error("Delete source error: ", error);
     },
   });
 

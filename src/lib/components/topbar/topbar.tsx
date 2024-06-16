@@ -8,6 +8,7 @@ import { Outlet } from "react-router-dom";
 import { AppName } from "./app-name/app-name";
 import { DesktopNav } from "./desktop-nav/desktop-nav";
 import { MobileNav } from "./mobile-nav/mobile-nav";
+import { GuestWidget } from "./guest-widget/guest-widget";
 
 import styles from "./topbar.module.scss";
 
@@ -21,11 +22,11 @@ export const Topbar: FC = () => {
     <>
       <nav className={styles.navWrapper}>
         <AppName />
-
         <DesktopNav isRandomQuoteSectionVisible={isRandomQuoteSectionVisible} />
-
         <MobileNav isRandomQuoteSectionVisible={isRandomQuoteSectionVisible} />
+        <GuestWidget />
       </nav>
+
       <Outlet />
     </>
   );

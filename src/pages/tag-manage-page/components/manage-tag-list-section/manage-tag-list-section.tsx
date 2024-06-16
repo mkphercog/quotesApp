@@ -11,6 +11,7 @@ import { defaultValues, validationSchema } from "../../validation";
 import { SearchAndFilterPanel, useSearchAndFilterPanel } from "lib/components";
 import { EditableTagContent } from "./editable-tag-content/editable-tag-content";
 import { NotEditableTagContent } from "./not-editable-tag-content/not-editable-tag-content";
+import { useSession } from "lib/providers/session/session.hooks";
 
 import styles from "./manage-tag-list-section.module.scss";
 
@@ -25,6 +26,12 @@ export const ManageTagListSection = () => {
     isManageTagLoading,
     handleCancel,
   } = useManageTag();
+  const {
+    decreaseGuestActions,
+    isGuestLogged,
+    canGuestDoAction,
+    isRegularUserLogged,
+  } = useSession();
 
   const { filteredList, formParams: searchFormParams } =
     useSearchAndFilterPanel({
@@ -66,7 +73,13 @@ export const ManageTagListSection = () => {
       <BaseForm
         id={currentTagId || ""}
         formParams={formParams}
-        onSubmit={handleUpdateTag}
+        onSubmit={(data) => {
+          decreaseGuestActions();
+
+          if (isRegularUserLogged || (isGuestLogged && canGuestDoAction)) {
+            handleUpdateTag(data);
+          }
+        }}
       >
         {list.map((tag) => {
           const isCurrentItemEdited = tag.id === currentTagId;
@@ -88,11 +101,24 @@ export const ManageTagListSection = () => {
                   <ManageListCardActions
                     onCancelClick={handleCancel}
                     deleteButton={{
-                      onClick: handleDeleteTag,
-                      isDisabled: isManageTagLoading,
+                      onClick: () => {
+                        decreaseGuestActions();
+
+                        if (
+                          isRegularUserLogged ||
+                          (isGuestLogged && canGuestDoAction)
+                        ) {
+                          handleDeleteTag();
+                        }
+                      },
+                      isDisabled:
+                        isManageTagLoading ||
+                        (isGuestLogged && !canGuestDoAction),
                     }}
                     submitButton={{
-                      isDisabled: isSubmitDisabled,
+                      isDisabled:
+                        isSubmitDisabled ||
+                        (isGuestLogged && !canGuestDoAction),
                     }}
                   />
                 </>

@@ -1,0 +1,61 @@
+@use "./assets/styles/breakpoints.scss" as *;
+
+.auth {
+  width: 100%;
+  height: 100dvh;
+  background-color: var(--amplify-colors-background-primary);
+}
+
+.authFooter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.appNameWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0;
+  background-color: var(--amplify-colors-background-primary);
+  border-color: var(--amplify-components-authenticator-router-border-color);
+  border-width: var(--amplify-components-authenticator-router-border-width);
+  border-style: var(--amplify-components-authenticator-router-border-style);
+}
+
+.appName {
+  font-size: 20px !important;
+  line-height: 22px !important;
+  font-weight: bold !important;
+  color: var(--amplify-colors-font-secondary) !important;
+
+  @include for-tablet-lg-up {
+    font-size: 25px !important;
+    line-height: 25px !important;
+  }
+}
+
+.name {
+  font-size: 10px !important;
+  line-height: 20px !important;
+  font-weight: bold !important;
+  color: var(--amplify-colors-font-secondary) !important;
+
+  @include for-tablet-lg-up {
+    font-size: 12px !important;
+    line-height: 22px !important;
+  }
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+
+  @include for-tablet-lg-up {
+    width: 24px;
+    height: 24px;
+  }
+}

@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { Menu, MenuItem } from "@aws-amplify/ui-react";
+import { Menu, MenuItem, useAuthenticator } from "@aws-amplify/ui-react";
 
 import { ROUTES } from "api/routes";
 import { NavLinkClassNameProps } from "../topbar.types";
@@ -16,6 +16,7 @@ interface MobileNavProps {
 export const MobileNav: FC<MobileNavProps> = ({
   isRandomQuoteSectionVisible,
 }) => {
+  const { user } = useAuthenticator();
   const navigate = useNavigate();
 
   const getMobileNavLinkClasses = ({ isActive }: NavLinkClassNameProps) => {
@@ -27,6 +28,8 @@ export const MobileNav: FC<MobileNavProps> = ({
       <ColorModeToggler />
 
       <Menu>
+        <MenuItem>Witaj, {user.attributes?.nickname}!</MenuItem>
+
         <MenuItem onClick={() => navigate({ pathname: ROUTES.home.root() })}>
           <NavLink className={getMobileNavLinkClasses} to={ROUTES.home.root()}>
             Lista

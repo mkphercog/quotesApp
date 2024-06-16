@@ -7,6 +7,7 @@ import { ColorModeToggler, SignOutButton } from "lib/components";
 
 import cn from "classnames";
 import styles from "./desktop-nav.module.scss";
+import { Text, useAuthenticator } from "@aws-amplify/ui-react";
 
 interface DesktopNavProps {
   isRandomQuoteSectionVisible: boolean;
@@ -15,6 +16,7 @@ interface DesktopNavProps {
 export const DesktopNav: FC<DesktopNavProps> = ({
   isRandomQuoteSectionVisible,
 }) => {
+  const { user } = useAuthenticator();
   const getDesktopNavLinkClasses = ({ isActive }: NavLinkClassNameProps) => {
     return cn(styles.navLink, { [styles.activeDesktop]: isActive });
   };
@@ -34,6 +36,7 @@ export const DesktopNav: FC<DesktopNavProps> = ({
         </NavLink>
       )}
 
+      <Text>Witaj, {user.attributes?.nickname}!</Text>
       <ColorModeToggler />
       <SignOutButton />
     </div>

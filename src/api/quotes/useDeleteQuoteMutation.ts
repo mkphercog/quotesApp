@@ -21,7 +21,7 @@ export const useDeleteQuoteMutation = () => {
       await queryClient.invalidateQueries([QueryKeys.quoteList]);
     },
     onError: (error) => {
-      console.log("Add quote error: ", error);
+      console.error("Add quote error: ", error);
     },
   });
 

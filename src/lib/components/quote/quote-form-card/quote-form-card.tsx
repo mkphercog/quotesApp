@@ -15,6 +15,7 @@ import {
   QUOTE_COMMENT_MAX_LENGTH,
   QUOTE_CONTENT_MAX_LENGTH,
 } from "./validation";
+import { useSession } from "lib/providers/session/session.hooks";
 
 import styles from "./quote-form-card.module.scss";
 
@@ -38,12 +39,24 @@ export const QuoteFormCard: FC<QuoteFormCardProps> = ({
   clearForm,
 }) => {
   const isError = !!Object.entries(formParams.formState.errors).length;
+  const {
+    decreaseGuestActions,
+    isGuestLogged,
+    canGuestDoAction,
+    isRegularUserLogged,
+  } = useSession();
 
   return (
     <BaseForm
       className={styles.wrapper}
       formParams={formParams}
-      onSubmit={onSubmit}
+      onSubmit={(data) => {
+        decreaseGuestActions();
+
+        if (isRegularUserLogged || (isGuestLogged && canGuestDoAction)) {
+          onSubmit(data);
+        }
+      }}
     >
       <FormTextarea
         labelText="Treść cytatu"
@@ -88,7 +101,12 @@ export const QuoteFormCard: FC<QuoteFormCardProps> = ({
       <Button
         className={styles.submitButton}
         type="submit"
-        disabled={isError || !formParams.formState.isDirty || isLoading}
+        disabled={
+          isError ||
+          !formParams.formState.isDirty ||
+          isLoading ||
+          (isGuestLogged && !canGuestDoAction)
+        }
       >
         {submitButtonText}
       </Button>

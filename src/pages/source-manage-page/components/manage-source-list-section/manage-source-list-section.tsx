@@ -11,6 +11,7 @@ import { defaultValues, validationSchema } from "../../validation";
 import { SearchAndFilterPanel, useSearchAndFilterPanel } from "lib/components";
 import { EditableSourceContent } from "./editable-source-content/editable-source-content";
 import { NotEditableSourceContent } from "./not-editable-source-content/not-editable-source-content";
+import { useSession } from "lib/providers/session/session.hooks";
 
 import styles from "./manage-source-list-section.module.scss";
 
@@ -25,6 +26,12 @@ export const ManageSourceListSection = () => {
     isManageSourceLoading,
     handleCancel,
   } = useManageSource();
+  const {
+    decreaseGuestActions,
+    isGuestLogged,
+    canGuestDoAction,
+    isRegularUserLogged,
+  } = useSession();
 
   const { filteredList, formParams: searchFormParams } =
     useSearchAndFilterPanel({
@@ -84,7 +91,13 @@ export const ManageSourceListSection = () => {
       <BaseForm
         id={currentSourceId || ""}
         formParams={formParams}
-        onSubmit={handleUpdateSource}
+        onSubmit={(data) => {
+          decreaseGuestActions();
+
+          if (isRegularUserLogged || (isGuestLogged && canGuestDoAction)) {
+            handleUpdateSource(data);
+          }
+        }}
       >
         {list.map((source) => {
           const isCurrentItemEdited = source.id === currentSourceId;
@@ -106,11 +119,24 @@ export const ManageSourceListSection = () => {
                   <ManageListCardActions
                     onCancelClick={handleCancel}
                     deleteButton={{
-                      onClick: handleDeleteSource,
-                      isDisabled: isManageSourceLoading,
+                      onClick: () => {
+                        decreaseGuestActions();
+
+                        if (
+                          isRegularUserLogged ||
+                          (isGuestLogged && canGuestDoAction)
+                        ) {
+                          handleDeleteSource();
+                        }
+                      },
+                      isDisabled:
+                        isManageSourceLoading ||
+                        (isGuestLogged && !canGuestDoAction),
                     }}
                     submitButton={{
-                      isDisabled: isSubmitDisabled,
+                      isDisabled:
+                        isSubmitDisabled ||
+                        (isGuestLogged && !canGuestDoAction),
                     }}
                   />
                 </>

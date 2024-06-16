@@ -1,0 +1,70 @@
+@use "./assets/styles/breakpoints.scss" as *;
+
+.guestInfoWidget {
+  position: absolute;
+  top: 80px;
+  left: -200px;
+  display: flex;
+  align-items: flex-start;
+  transition: var(--short-animation-duration);
+  z-index: 999;
+
+  @include for-tablet-lg-up {
+    left: -300px;
+  }
+}
+
+.guestInfoWidgetOpen {
+  left: 0;
+}
+
+.hintWrapper {
+  width: 200px;
+  padding: 10px 20px 10px 10px;
+  background-color: var(--amplify-colors-green-10);
+  border-bottom-right-radius: 10px;
+  cursor: pointer;
+  opacity: 0.85;
+
+  @include for-tablet-lg-up {
+    width: 300px;
+  }
+}
+
+.counterWrapper {
+  padding: 10px 20px 10px 10px;
+  background-color: var(--amplify-colors-green-10);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  cursor: pointer;
+  opacity: 0.85;
+
+  @include for-tablet-lg-up {
+    font-size: 20px !important;
+    line-height: 30px !important;
+  }
+}
+
+.counter {
+  font-size: 18px !important;
+  line-height: 27px !important;
+  font-weight: bold !important;
+  color: var(--amplify-colors-font-secondary) !important;
+
+  @include for-tablet-lg-up {
+    font-size: 20px !important;
+    line-height: 30px !important;
+  }
+}
+
+.hint {
+  font-size: 15px !important;
+  line-height: 27px !important;
+  font-weight: bold !important;
+  color: var(--amplify-colors-font-secondary) !important;
+
+  @include for-tablet-lg-up {
+    font-size: 18px !important;
+    line-height: 30px !important;
+  }
+}

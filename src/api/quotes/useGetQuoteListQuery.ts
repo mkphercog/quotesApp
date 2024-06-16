@@ -4,6 +4,7 @@ import { getSortedListByCreationDate } from "lib/utils";
 import { getQuoteDataModel, listQuoteDataModels } from "../../graphql/queries";
 import { EagerQuoteDataModel } from "../../models";
 import { QueryKeys } from "../query-keys";
+import { useAuthenticator } from "@aws-amplify/ui-react";
 
 interface QuoteDataResponseType {
   data: {
@@ -14,8 +15,9 @@ interface QuoteDataResponseType {
 }
 
 export const useGetQuotesListQuery = () => {
+  const { user } = useAuthenticator();
   const { data: quoteList, isLoading } = useQuery({
-    queryKey: [QueryKeys.quoteList],
+    queryKey: [QueryKeys.quoteList, user],
     queryFn: async () => {
       const response = (await API.graphql(
         graphqlOperation(listQuoteDataModels)

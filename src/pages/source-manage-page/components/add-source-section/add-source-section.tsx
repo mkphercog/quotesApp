@@ -2,12 +2,19 @@ import { Button, Loader, Text } from "@aws-amplify/ui-react";
 import { BaseForm, FormTextInput, RequiredHint } from "lib/components/form";
 import { SOURCE_VALUE_MAX_LENGTH } from "pages/source-manage-page/validation";
 import { useAddSource } from "../../hooks";
+import { useSession } from "lib/providers/session/session.hooks";
 
 import styles from "./add-source-section.module.scss";
 
 export const AddSourceSection = () => {
   const { formParams, isAddSourceMutationLoading, handleAddSource, clearForm } =
     useAddSource();
+  const {
+    decreaseGuestActions,
+    isGuestLogged,
+    canGuestDoAction,
+    isRegularUserLogged,
+  } = useSession();
 
   const isErrorInTitle = !!formParams.formState.errors.title;
   const isErrorInAuthor = !!formParams.formState.errors.author;
@@ -17,7 +24,13 @@ export const AddSourceSection = () => {
     <BaseForm
       className={styles.wrapper}
       formParams={formParams}
-      onSubmit={handleAddSource}
+      onSubmit={(data) => {
+        decreaseGuestActions();
+
+        if (isRegularUserLogged || (isGuestLogged && canGuestDoAction)) {
+          handleAddSource(data);
+        }
+      }}
     >
       <Text className={styles.heading}>
         Nowe źródło {isAddSourceMutationLoading && <Loader />}
@@ -50,7 +63,8 @@ export const AddSourceSection = () => {
           disabled={
             !formParams.formState.isDirty ||
             isAddSourceMutationLoading ||
-            isError
+            isError ||
+            (isGuestLogged && !canGuestDoAction)
           }
         >
           Dodaj
