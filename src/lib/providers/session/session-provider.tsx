@@ -1,5 +1,3 @@
-import { useAuthenticator } from "@aws-amplify/ui-react";
-import { GUEST_ACTIONS_VALUE, GUEST_LOCALSTORAGE_KEY } from "lib/constants";
 import {
   FC,
   PropsWithChildren,
@@ -9,9 +7,11 @@ import {
   useMemo,
   useState,
 } from "react";
+import { useAuthenticator } from "@aws-amplify/ui-react";
 import {
   decreaseCurrentGuestActions,
   getCurrentGuestActions,
+  setGuestInitialState,
 } from "./session.helpers";
 import { SessionType } from "./session.types";
 
@@ -26,13 +26,6 @@ export const SessionProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const canGuestDoAction = currentGuestActions > 0;
 
-  if (isGuestLogged && !getCurrentGuestActions()) {
-    localStorage.setItem(
-      GUEST_LOCALSTORAGE_KEY,
-      GUEST_ACTIONS_VALUE.toString()
-    );
-  }
-
   const decreaseGuestActions = useCallback(() => {
     decreaseCurrentGuestActions(isGuestLogged, canGuestDoAction);
     setCurrentGuestActions((state) => --state);
@@ -42,7 +35,11 @@ export const SessionProvider: FC<PropsWithChildren> = ({ children }) => {
     setIsGuestLogged(
       user.attributes?.email === process.env.REACT_APP_GUEST_USER_EMAIL
     );
-  }, [user]);
+
+    if (isGuestLogged && !getCurrentGuestActions()) {
+      setCurrentGuestActions(setGuestInitialState());
+    }
+  }, [isGuestLogged, user]);
 
   const value = useMemo<SessionType>(
     () => ({
